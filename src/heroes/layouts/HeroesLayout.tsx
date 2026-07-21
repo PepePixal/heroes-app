@@ -5,15 +5,15 @@ import { Outlet } from "react-router"
 export const HeroesLayout = () => {
 
   return (
-    
-    <div className="bg-red-300">
-        <h1>Heroes Layout</h1>
 
-        <section className="mt-10">
-        {/* renderiza los comps de las rutas hijas de HeroesLyout */}
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-purple-50">
+      <div className="max-w-7xl mx-auto p-6">
+
+        {/* Renderiza los comps de las rutas hijas de <HeroesLayout>  */}
         <Outlet />
-        </section>
-
+      
+      </div>
     </div>
+
   )
 }

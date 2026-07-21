@@ -7,7 +7,7 @@
   
   /*shedcn-ui*/
   "compilerOptions": {
-    "baseUrl": ".",
+    // "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }

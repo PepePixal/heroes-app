@@ -23,11 +23,12 @@
     "noFallthroughCasesInSwitch": true,
 
     /*shedcn-ui*/
-    "baseUrl": ".",
+    // "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"
-      ]
+      ],
+      "*": ["./src/*"]
     },
 
   },

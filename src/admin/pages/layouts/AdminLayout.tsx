@@ -8,7 +8,7 @@ export const AdminLayout = () => {
     <div className="bg-blue-300">
         <h1>Admin Layoutayout</h1>
 
-        {/* renderiza los comps de las rutas hijas de AdminLayout */}
+        {/* Renderiza los comps de las rutas hijas de AdminLayout */}
         <Outlet />
 
     </div>

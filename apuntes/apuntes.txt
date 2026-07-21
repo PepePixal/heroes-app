@@ -81,6 +81,16 @@ Permite envolver los componentes perezosos y mostrar un contenido alternativo (u
 
 🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66676671-pensemos-en-componentes-reutilizables
 
+Diseños V0:
+	- https://v0.app/fernandoherreracr-9392/chat/super-heroes-app-uHwJjyhRFkH
+	- https://v0.app/fernandoherreracr-9392/chat/superhero-page-H4T6IoEFXdV
+
+Respaldos en GitHub:
+	- https://github.com/Klerith/react-ts-heroes-app
+	- https://github.com/Klerith/react-ts-hero-page
+
+
+
 
 
 
@@ -115,7 +125,21 @@ Permite envolver los componentes perezosos y mostrar un contenido alternativo (u
 - En el app.router.tsx, definir AdminLayout y AdminPage como lazy()
 - Definir export default en AdminLayout y AdminPage.
 
- 
+- Copiar del repositorio de github, la pagina app/page.tsx y pegarlo en la página /heroes/pages/home/HomePage.tsx
+- Adaptar el código pegado, a nuestro proyecto. Importar los componentes shadcn que falten, con : npx shadcn@latest add
+- Extraer HomePage.tsx, las partes de código comunes para el layout e insertarlas en HeroesLayout.tsx
+
+- Crear carpeta src/components/custom, para los componentes personalizados, comunes al proyecto (como el header)
+- Crear el archivo y el componente: src/components/custom/CustomJumbotron.tsx (el nombre CustomJumbotron es típico para componentes personalizados reutilizables, suele contener un header)
+- Cortar del HomePage.tsx, el código de header y pergarlo en el comp. CustomJumbotron.tsx
+- En HomePage.tsx llamar al comp CustomJumbotron (header) enviando propedades requeridas.
+- En SearchPage.tsx llamar al comp CustomJumbotron (header) enviando propedades requeridas.
+
+
+
+
+
+
 
 
 	
