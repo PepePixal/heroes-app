@@ -1,0 +1,51 @@
+- Instalación librería de componentes UI shedcn-ui para Vite: ver apuntes/instalar-shadcn-ui.txt
+ 
+	- https://ui.shadcn.com/docs/installation/vite#existing-project
+	- Incluye la instalación de tailwindcss: npm install tailwindcss @tailwindcss/vite
+	- Incluye la instalación de: npm install -D @types/node
+	- Agregar al index.css: @import "tailwindcss";
+	- tsconfig.json agregar:
+		"compilerOptions": {
+			"baseUrl": ".",
+ 			"paths": {
+				"@/*": ["./src/*"]
+   			}
+  		}
+
+	- tsconfig.app.json, dentro de "CompilerOptions" { },  agregar:
+		    "baseUrl": ".",
+		    "paths": {
+		        "@/*": [
+		           "./src/*"
+		        ]
+		    }
+
+	- vite.config.ts agregar:
+		import path from "path"
+		import tailwindcss from "@tailwindcss/vite"
+
+		// https://vite.dev/config/
+		export default defineConfig({
+  			plugins: [
+			    react(),
+			    tailwindcss(),
+			    babel({ presets: [reactCompilerPreset()] })
+			],
+			resolve: {	
+		    		alias: {
+		      			"@": path.resolve(__dirname, "./src"),
+		    		},
+  			},
+		});
+
+	- Run the CLI#: npx shadcn@latest init
+
+	- Crear un botón de ejmplo: npx shadcn@latest add button
+ 	  Esto genera el código del botón en: src/components/ui/button.tsx
+
+	- Insertar el botón en el código:
+		import { Button } from './components/ui/button'
+		<Button>Ejemplo Botón</Button>
+
+	- Para que el botón muestre el puntero: abrir src/components/ui/button.tsx y agregar cursor-pointer
+

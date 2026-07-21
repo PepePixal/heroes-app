@@ -1,0 +1,130 @@
+React - de cero a experto
+Fernando Herrera
+dev/talles
+
+----------------------------------------------------------------
+✅ Sección 13 - SPA - Single Page Aplication
+----------------------------------------------------------------
+
+🟠https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66664074-demostracion
+
+Contenido:
+- ShadcnUI
+- Tailwind
+- Utilización de componentes
+- Estructura de layouts (plantillas) para ui.
+- Segmentación de código
+- LazyLoad
+- Estrutura de una paginación
+- Y todo lo relacionado al diseño de la aplicación
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66664681-creacion-de-proyecto-heroesapp
+
+PS C:\Users\Pepe\Desktop\React-Fdo-Herrera\React\13-SPA-Sigle-Page-Aplication> 
+npm create vite@latest
+
+◇  Project name:
+│  heroes-app
+◇  Select a framework:
+│  React
+◇  Select a variant:
+│  TypeScript + React Compiler
+◆  Which linter to use?
+│  ● Oxlint
+◇  Install with npm and start now?
+│  No
+◇ cd heroes-app
+  - npm install
+  - npm run dev
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66665110-generadores-visuales-con-ia
+
+- https://v0.app/
+- https://lovable.dev/es
+- https://bolt.new/
+- https://stitch.withgoogle.com/
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66671380-creacion-de-rutas-y-pantallas
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66672043-componente-layout
+
+🔷 layout - (plantilla)
+
+En React (y en el desarrollo web en general), un layout (diseño o plantilla) es un componente estructurado que define la arquitectura visual y de navegación común para varias páginas o vistas de una aplicación.
+
+Su objetivo principal es evitar la duplicación de código, asegurando que elementos estructurales fijos no tengan que reescribirse en cada pantalla individual. Es típico tener layouts para la parte pública y layouts para la parte de administración.
+
+¿Qué elementos suele incluir un Layout?
+Por lo general, un layout agrupa las partes de la interfaz que se mantienen estáticas mientras el usuario navega entre diferentes secciones:
+- Barra de navegación superior (Navbar) o cabecera (Header).
+- Menú lateral (Sidebar).
+- Pie de página (Footer).
+- Contenedores de contenido (áreas donde cambian dinámicamente las vistas).
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66672473-lazy-load-carga-perezosa
+
+🔷 lazy loading - (carga perezosa)
+
+En el desarrollo web y en React, el lazy loading (o carga perezosa) es una técnica de optimización del rendimiento que consiste en retrasar la carga de recursos (como componentes, imágenes o datos) hasta el momento exacto en que el usuario realmente los necesita (por ejemplo, cuando aparecen en la pantalla o cuando hace clic en una ruta específica), en lugar de cargarlos todos al inicio de la aplicación.
+
+¿Por qué es importante?
+En una aplicación de React moderna, el código JavaScript suele empaquetarse en un solo archivo grande (o unos pocos archivos principales) utilizando herramientas como Vite o Webpack.
+- Sin Lazy Loading: El navegador descarga todo el código de la aplicación de golpe antes de mostrarle la primera pantalla al usuario. Si la aplicación es grande, esto ralentiza el tiempo de carga inicial (Initial Page Load).
+- Con Lazy Loading: La aplicación carga rápidamente mostrando solo lo esencial (como la página de inicio o el login) y descarga el resto de los componentes en segundo plano solo cuando el usuario navega hacia ellos.
+
+¿Cómo se implementa en React?
+React ofrece de forma nativa dos herramientas principales para lograr esto: React.lazy() y Suspense.
+- 1. React.lazy()
+Permite definir un componente que se cargará de forma dinámica mediante una importación dinámica de JavaScript (import()).
+- 2. <Suspense>
+Permite envolver los componentes perezosos y mostrar un contenido alternativo (un indicador de carga, como un spinner o un texto de "Cargando...") mientras el código del componente termina de descargarse de la red.
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66676671-pensemos-en-componentes-reutilizables
+
+
+
+
+/------/
+
+📝 Proceso de creación del proyecto heroes-app:
+
+- Creación del proyecto con vite + React (framework) + TypeScript / React Compiler (vairant) - Oxlint (linter)
+
+- Eliminar del proyecto: - src/assets/ - src/App.css - src/App.tsx
+	- Eliminar el contenido del archivo: src index.css
+	- En main.tsx eliminar el código: import App from './App.tsx' y <App /> (Agregar un <h1>Hola Mundo</h1> en su lugar).
+
+- Instalación librería de componentes UI shedcn-ui para Vite: ver apuntes/instalar-shadcn-ui.txt
+
+- Instalación React Router modo Data - https://reactrouter.com/start/data/installation
+	- npm i react-router
+
+- Crear carpeta por funcionalidad, archivo y componente (rafc): - src/admin/pages/AdminPage.tsx
+- Crear carpeta por funcionalidad, archivo y componente (rafc): - src/heroes/pages/hero/HeroPage.tsx
+- Crear carpeta por funcionalidad, archivo y componente (rafc): - src/heroes/pages/home/HomePage.tsx
+- Crear carpeta por funcionalidad, archivo y componente (rafc): - src/heroes/pages/search/SearchPage.tsx
+
+- Crear carpeta router, archivo y código rutas:	- src/router/approuter.ts
+
+- Crear componente principal y agregar el RouterProvider: src/HeroesApp.tsx
+
+- Crear carpeta, archivo y componente, layouts (plantillas): src/heroes/layouts/HeroesLayout.tsx
+- Crear carpeta, archivo y componente, layouts (plantillas): src/admin/layouts/AdminLayout.tsx
+- Agregar los componente HeroesLayout y AdminLayout, y sus hijos, a las rutas app.router.tsx
+
+- En el app.router.tsx, definir AdminLayout y AdminPage como lazy()
+- Definir export default en AdminLayout y AdminPage.
+
+ 
+
+
+	
+
+
+
+
+
+
+
+
+
