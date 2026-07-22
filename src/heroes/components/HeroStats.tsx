@@ -1,0 +1,67 @@
+// Componente Estadísticas
+
+import { Badge } from "@/components/ui/badge"
+import { Heart, Users, Zap } from "lucide-react"
+import { HeroStatCard } from './HeroStatCard';
+
+
+export const HeroStats = () => {
+
+  return (
+    /* Stats Dashboard - Estadísticas */
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+
+        {/* Llama al comp. enviando argumentos y children primera card */}
+        <HeroStatCard 
+            /* enviando argumentos Props al comp HeroStatCard */
+            title='Total Personajes' 
+            icon={<Users className="h-4 w-4 text-muted-foreground" />} 
+        >
+            {/* enviando children al comp HeroStatCard */}
+            <div className="text-2xl font-bold">16</div>
+                <div className="flex gap-1 mt-2">
+                    <Badge variant="secondary" className="text-xs">
+                        12 Heroes
+                    </Badge>
+                    <Badge variant="destructive" className="text-xs">
+                        2 Villains
+                    </Badge>
+                </div>
+        </HeroStatCard>    
+
+        {/* Llama comps. enviando argumentos y childrens, seg. terc y cuarta, tajetas */}
+        <HeroStatCard 
+            /* enviando argumentos Props al comp HeroStatCard */
+            title='Favorites' 
+            icon={<Heart className="h-4 w-4 text-muted-foreground" />} 
+        >
+            {/* enviando children al comp HeroStatCard */}
+            <div className="text-2xl font-bold text-red-600">3</div>
+            <p className="text-xs text-muted-foreground">18.8% of total</p>
+        </HeroStatCard>
+
+        <HeroStatCard 
+            /* enviando argumentos Props al comp HeroStatCard */
+            title='Fuerte' 
+            icon={<Zap className="h-4 w-4 text-muted-foreground" />} 
+        >
+            {/* enviando children al comp HeroStatCard */}
+            <div className="text-lg font-bold">Superman</div>
+            <p className="text-xs text-muted-foreground">Strength: 10/10</p>
+        </HeroStatCard>
+
+        <HeroStatCard 
+            /* enviando argumentos Props al comp HeroStatCard */
+            title='Favorites' 
+            icon={<Heart className="h-4 w-4 text-muted-foreground" />} 
+        >
+            {/* enviando children al comp HeroStatCard */}
+            <div className="text-lg font-bold">Batman</div>
+            <p className="text-xs text-muted-foreground">Intelligence: 10/10</p>
+        </HeroStatCard>
+
+    </div>
+
+  )
+}
+

@@ -116,14 +116,18 @@ Respaldos en GitHub:
 
 - Crear carpeta router, archivo y código rutas:	- src/router/approuter.ts
 
-- Crear componente principal y agregar el RouterProvider: src/HeroesApp.tsx
+- Crear componente principal src/HeroesApp.tsx y agregarle el RouterProvider
 
 - Crear carpeta, archivo y componente, layouts (plantillas): src/heroes/layouts/HeroesLayout.tsx
 - Crear carpeta, archivo y componente, layouts (plantillas): src/admin/layouts/AdminLayout.tsx
 - Agregar los componente HeroesLayout y AdminLayout, y sus hijos, a las rutas app.router.tsx
 
+Lazy load (carga perezosa)
+
 - En el app.router.tsx, definir AdminLayout y AdminPage como lazy()
 - Definir export default en AdminLayout y AdminPage.
+
+Diseño UI en componentes, a partir del diseño de V0 ai.
 
 - Copiar del repositorio de github, la pagina app/page.tsx y pegarlo en la página /heroes/pages/home/HomePage.tsx
 - Adaptar el código pegado, a nuestro proyecto. Importar los componentes shadcn que falten, con : npx shadcn@latest add
@@ -131,9 +135,23 @@ Respaldos en GitHub:
 
 - Crear carpeta src/components/custom, para los componentes personalizados, comunes al proyecto (como el header)
 - Crear el archivo y el componente: src/components/custom/CustomJumbotron.tsx (el nombre CustomJumbotron es típico para componentes personalizados reutilizables, suele contener un header)
-- Cortar del HomePage.tsx, el código de header y pergarlo en el comp. CustomJumbotron.tsx
-- En HomePage.tsx llamar al comp CustomJumbotron (header) enviando propedades requeridas.
-- En SearchPage.tsx llamar al comp CustomJumbotron (header) enviando propedades requeridas.
+- Cortar del HomePage.tsx, el código de header y pegarlo en el comp. personalizado reutilizable CustomJumbotron.tsx
+- En HomePage.tsx llamar al comp CustomJumbotron (header) enviando propiedades requeridas.
+- En SearchPage.tsx llamar al comp CustomJumbotron (header) enviando propiedades requeridas.
+
+- Crear carpeta archivo y componente: src/heroes/components/HeroStats.tsx (Estadísticas)
+- Cortar del HomePage.tsx, el código de Stats (estadísticas) y pegarlo en el comp. HeroStats.tsx
+- Actualizar errores de importación del código pegado.
+- En HomePage.tsx llamar al comp <HeroStats /> no requiere props.
+- En SearchPage.tsx llamar al comp <HeroStats /> no requiere props.
+
+- Descomponer el comp. HeroStats.tsx en nuevo componente
+- Crear archivo y comp. en: src/heroes/componentes/HeroStatCard.tsx
+- De HeroStats.tsx dejar el primer Card que es diferente y copiar uno de los tres siguientes, que tenga el comp <Zap
+- En HeroStatCard.tsx pegar el card copiado e importar los componentes que necesarios
+- En HeroStatCard.tsx, definir las props necesarias, que recibirá el componente
+
+
 
 
 
