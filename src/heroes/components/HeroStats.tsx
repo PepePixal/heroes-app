@@ -32,7 +32,7 @@ export const HeroStats = () => {
         {/* Llama comps. enviando argumentos y childrens, seg. terc y cuarta, tajetas */}
         <HeroStatCard 
             /* enviando argumentos Props al comp HeroStatCard */
-            title='Favorites' 
+            title='Favoritos' 
             icon={<Heart className="h-4 w-4 text-muted-foreground" />} 
         >
             {/* enviando children al comp HeroStatCard */}
@@ -52,7 +52,7 @@ export const HeroStats = () => {
 
         <HeroStatCard 
             /* enviando argumentos Props al comp HeroStatCard */
-            title='Favorites' 
+            title='Inteligente' 
             icon={<Heart className="h-4 w-4 text-muted-foreground" />} 
         >
             {/* enviando children al comp HeroStatCard */}

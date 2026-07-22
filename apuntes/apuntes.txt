@@ -80,6 +80,8 @@ Permite definir un componente que se cargará de forma dinámica mediante una im
 Permite envolver los componentes perezosos y mostrar un contenido alternativo (un indicador de carga, como un spinner o un texto de "Cargando...") mientras el código del componente termina de descargarse de la red.
 
 🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66676671-pensemos-en-componentes-reutilizables
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66676671-pensemos-en-componentes-reutilizables-Parte2
+
 
 Diseños V0:
 	- https://v0.app/fernandoherreracr-9392/chat/super-heroes-app-uHwJjyhRFkH
@@ -89,14 +91,17 @@ Respaldos en GitHub:
 	- https://github.com/Klerith/react-ts-heroes-app
 	- https://github.com/Klerith/react-ts-hero-page
 
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66678027-componentes-de-busqueda
 
-
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66695535-grid-de-personajes
 
 
 
 /------/
 
-📝 Proceso de creación del proyecto heroes-app:
+*** PROCESO PROYECTO heroes-app: ***
+
+Creación:
 
 - Creación del proyecto con vite + React (framework) + TypeScript / React Compiler (vairant) - Oxlint (linter)
 
@@ -118,6 +123,7 @@ Respaldos en GitHub:
 
 - Crear componente principal src/HeroesApp.tsx y agregarle el RouterProvider
 
+Layouts
 - Crear carpeta, archivo y componente, layouts (plantillas): src/heroes/layouts/HeroesLayout.tsx
 - Crear carpeta, archivo y componente, layouts (plantillas): src/admin/layouts/AdminLayout.tsx
 - Agregar los componente HeroesLayout y AdminLayout, y sus hijos, a las rutas app.router.tsx
@@ -129,16 +135,19 @@ Lazy load (carga perezosa)
 
 Diseño UI en componentes, a partir del diseño de V0 ai.
 
+// HomePage
 - Copiar del repositorio de github, la pagina app/page.tsx y pegarlo en la página /heroes/pages/home/HomePage.tsx
 - Adaptar el código pegado, a nuestro proyecto. Importar los componentes shadcn que falten, con : npx shadcn@latest add
 - Extraer HomePage.tsx, las partes de código comunes para el layout e insertarlas en HeroesLayout.tsx
 
+- // Componente header:
 - Crear carpeta src/components/custom, para los componentes personalizados, comunes al proyecto (como el header)
 - Crear el archivo y el componente: src/components/custom/CustomJumbotron.tsx (el nombre CustomJumbotron es típico para componentes personalizados reutilizables, suele contener un header)
 - Cortar del HomePage.tsx, el código de header y pegarlo en el comp. personalizado reutilizable CustomJumbotron.tsx
 - En HomePage.tsx llamar al comp CustomJumbotron (header) enviando propiedades requeridas.
 - En SearchPage.tsx llamar al comp CustomJumbotron (header) enviando propiedades requeridas.
 
+- // Componente Stats:
 - Crear carpeta archivo y componente: src/heroes/components/HeroStats.tsx (Estadísticas)
 - Cortar del HomePage.tsx, el código de Stats (estadísticas) y pegarlo en el comp. HeroStats.tsx
 - Actualizar errores de importación del código pegado.
@@ -149,8 +158,18 @@ Diseño UI en componentes, a partir del diseño de V0 ai.
 - Crear archivo y comp. en: src/heroes/componentes/HeroStatCard.tsx
 - De HeroStats.tsx dejar el primer Card que es diferente y copiar uno de los tres siguientes, que tenga el comp <Zap
 - En HeroStatCard.tsx pegar el card copiado e importar los componentes que necesarios
-- En HeroStatCard.tsx, definir las props necesarias, que recibirá el componente
+- En HeroStatCard.tsx, definir las props y el childreb que recibirá el comp. y desestructurarlas.
+- Desde HeroStats.tsx llamar al comp HeroStatCard.tsx enviando props y children
 
+- // Componentes de búsqueda y filtros:
+- Crear carpeta src/heroes/pages/search/ui, archivo SearchControls.tsx y componente
+- En HomePage.tsx, cortar el código del <div> Controls (que incluye  Search y Action Buttons) y el <div> Advanced Filters
+- En SearchControls.tsx, pegar el código cortado, en el return, dentro de un fragmento <></> y hacer las imports necesarias.
+- Desde SearchPage.tsx, llamar al comp <SearchControls />
+
+- En HomePage.tsx, eliminar el div /* Results info */
+
+- // Componentes de Character (Personaje) Grid:
 
 
 
