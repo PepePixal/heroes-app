@@ -169,7 +169,21 @@ Diseño UI en componentes, a partir del diseño de V0 ai.
 
 - En HomePage.tsx, eliminar el div /* Results info */
 
-- // Componentes de Character (Personaje) Grid:
+- // Componentes del Grid de tarjetas de Personajes (Character Grid):
+- Crear el archivo y el componente: src/heroes/components/HeroGrid.tsx
+- En HomePage.tsx, cortar el código del <div> Character Grid
+- En HeroGrid.tsx, en el return pegar el código cortado de HomePage y hacer las importaciones necesarias.
+- Desde el HomePage.tsx, llamar al comp <HeroGrid />, no requiere argumentos
+
+- Extraer una de las cards del comp HeroGrid en un nuevo componente HeroGridCard:
+- Crear nuevo archivo y componente src/heroes/components/HeroGridCard.tsx
+- De HomePage.tsx, copiar el código de una <Card 
+- En HeroGridCard.tsx, pegar el código copiado dentro del return e importar los comps necesarios
+- Desde el HomePage.tsx, llamar al comp <HeroGridCard /> , no requiere enviar props.
+- En HomePage.tsx, eliminar todas las <Card>..</Card> y eliminar las import no necesarias.
+
+- Modificar el color de las barras de progreso, editando previamente el comp. src/componets/ui/porgress.tsx
+
 
 
 
