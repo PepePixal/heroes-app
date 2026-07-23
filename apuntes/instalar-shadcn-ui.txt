@@ -49,3 +49,9 @@
 
 	- Para que el botón muestre el puntero: abrir src/components/ui/button.tsx y agregar cursor-pointer
 
+
+
+
+
+
+

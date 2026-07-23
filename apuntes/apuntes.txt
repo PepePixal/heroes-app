@@ -95,11 +95,29 @@ Respaldos en GitHub:
 
 🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66695535-grid-de-personajes
 
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66696431-shadcn-tabs
+
+🔷 <Tabs> - Componente de la Librería Shadcn UI 
+
+Tabs, TabsList y TabsTrigger (junto con Heart, que parece ser un icono de una librería como lucide-react) son componentes de React.
+Forman parte de librería de interfaz de usuario (UI) del ecosistema de React, Shadcn UI, que utilizan componentes compuestos (compound components) para estructurar pestañas de navegación de manera accesible y estilizada.
+
+Desglose de los componentes:
+
+<Tabs>: Es el componente contenedor principal que gestiona el estado global de las pestañas (su atributo value='', cuál está activa actualmente).
+- <TabsList>: Es el contenedor visual que agrupa y organiza la botonera o barra de pestañas (en este caso, configurado con una cuadrícula de 4 columnas mediante clases de Tailwind: grid w-full grid-cols-4).
+- <TabsTrigger>: Es cada uno de los botones individuales dentro de la lista, que el usuario puede pulsar para cambiar entre las diferentes pestañas, identificadas con el atributo value='' (all, favorites, heroes, villains).
+
+- <TabsContent>: Es la pieza que falta para que el sistema de pestañas funcione por completo.
+En el patrón de diseño de Shadcn UI y Radix UI (componentes compuestos), cada vez que defines un TabsTrigger (el botón), necesitas su correspondiente TabsContent (el panel de contenido) para mostrar la información cuando esa pestaña esté activa.
+¿Cómo se utiliza?
+TabsContent recibe una prop value que debe coincidir exactamente con el value del TabsTrigger al que pertenece.
 
 
 /------/
 
-*** PROCESO PROYECTO heroes-app: ***
+*
+** PROCESO PROYECTO heroes-app: ***
 
 Creación:
 
@@ -184,7 +202,10 @@ Diseño UI en componentes, a partir del diseño de V0 ai.
 
 - Modificar el color de las barras de progreso, editando previamente el comp. src/componets/ui/porgress.tsx
 
-
+- // Componente Tabs (Etiquetas o Pestañas);
+- En HomePage.tsx, dentro del comp <Tabs>, agregar los comps <TabsContent value=''>, con el value correspondiente a cada <TabsTrigger> de la <TabsList>, y el contenido de cada uno.
+- Agregar useState temporal, para gestionar el estado del Tab activado en cada momento.
+- Agregar los onClick que mdificaran el estado del activeTab, a cada uno de los < TabsTrigger... onClick={()=>setAciveTab()} >
 
 
 

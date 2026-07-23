@@ -1,20 +1,24 @@
 
+import { useState } from "react"
 import {
-  Heart,
   ChevronLeft,
   ChevronRight,
   MoreHorizontal,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { CustomJumbotron } from "@/components/custom/CustomJumbotron"
 import { HeroStats } from "@/heroes/components/HeroStats"
 import { HeroGrid } from "@/heroes/components/HeroGrid"
 
 export const HomePage = () => {
+
+  // hook useState temporal para manejar el state del Tab activo. Iniciado con 'all' y
+  // que puede tener cualquier de los estados: 'all', 'favorites', 'heroes', 'villains' 
+  const [ activeTab, setActiveTab] = useState<'all' | 'favorites' | 'heroes' | 'villains'>('all');
+
   return (
     <>
-      <>
         {/* Header */}
         {/* llama comp. enviando propiedades requeridas */}
         <CustomJumbotron
@@ -26,22 +30,44 @@ export const HomePage = () => {
         {/* llama comp., no requiere props */}
         <HeroStats />
 
-        {/* Tabs (etiquetas) */}
-        <Tabs value="all" className="mb-8">
+        {/* Tabs (etiquetas o pestañas) */}
+        <Tabs value={activeTab} className="mb-8">
           <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="all">All Characters (16)</TabsTrigger>
-            <TabsTrigger value="favorites" className="flex items-center gap-2">
-              <Heart className="h-4 w-4" />
-              Favorites (3)
+            <TabsTrigger value="all"
+              onClick={ () => setActiveTab('all') }>Todos
             </TabsTrigger>
-            <TabsTrigger value="heroes">Heroes (12)</TabsTrigger>
-            <TabsTrigger value="villains">Villains (2)</TabsTrigger>
+            <TabsTrigger value="favorites" className="flex items-center gap-2"
+              onClick={ () => setActiveTab('favorites') }>Favoritos
+            </TabsTrigger>
+            <TabsTrigger value="heroes"
+              onClick={ () => setActiveTab('heroes') }>Héroes
+            </TabsTrigger>
+            <TabsTrigger value="villains"
+              onClick={ () => setActiveTab('villains')}>Villanos
+            </TabsTrigger>
           </TabsList>
+
+          <TabsContent value='all'>
+            {/* Mostrar grid de tarjetas, de los Personajes */}
+            <h1>Todos los Personajes</h1>
+            <HeroGrid />
+          </TabsContent>
+          <TabsContent value='favorites'>
+            <h1>Los Favoritos</h1>
+            <HeroGrid />
+          </TabsContent>
+          <TabsContent value='heroes'>
+            <h1>Los Héroes</h1>
+            <HeroGrid />
+          </TabsContent>
+          <TabsContent value='villains'>
+            {/* Mostrar grid de tarjetas, de los Villanos */}
+            <h1>Los Villanos</h1>
+            <HeroGrid />
+          </TabsContent>
         </Tabs>
 
-        {/* Character (Personajes) cards Grid */}
-        <HeroGrid />
-
+       
         {/* Pagination */}
         <div className="flex items-center justify-center space-x-2">
           <Button variant="outline" size="sm" disabled>
@@ -67,7 +93,6 @@ export const HomePage = () => {
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
-      </>
     </>
   )
 }
