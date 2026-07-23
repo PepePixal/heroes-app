@@ -113,6 +113,8 @@ En el patrón de diseño de Shadcn UI y Radix UI (componentes compuestos), cada 
 ¿Cómo se utiliza?
 TabsContent recibe una prop value que debe coincidir exactamente con el value del TabsTrigger al que pertenece.
 
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66696673-componente-de-paginacion
+
 
 /------/
 
@@ -206,6 +208,18 @@ Diseño UI en componentes, a partir del diseño de V0 ai.
 - En HomePage.tsx, dentro del comp <Tabs>, agregar los comps <TabsContent value=''>, con el value correspondiente a cada <TabsTrigger> de la <TabsList>, y el contenido de cada uno.
 - Agregar useState temporal, para gestionar el estado del Tab activado en cada momento.
 - Agregar los onClick que mdificaran el estado del activeTab, a cada uno de los < TabsTrigger... onClick={()=>setAciveTab()} >
+- Agregar un comp <HeroGrid />, como contenido a mostrar, en cada <TabsContent>
+
+- // Paginación
+- Extraer el código de paginación del comp HomePage.tsx y crear un nuevo comp de paginación, de uso general.
+- Crear nuevo archivo y comp en: src/componentes/custom/CustomPagination.tsx
+- En HomePage.tsx, cortar el código de paginación y pegarlo en el return del componente CustomPagination.tsx
+- En CustomPagination.tsx hacer las correspondientes importaciones de comps.
+- En HomePage.tsx al final, llamar al comp. <CustomPagination />, importar.
+- En CustomPagination.tsx, definir Props, destruct. props a recibir y programar funcionalidad de los botones de paginación, que se basara en el número de pagina que se mostrará en la url del navegador.
+
+
+
 
 
 
