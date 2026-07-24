@@ -11,7 +11,7 @@ export const SearchPage = () => {
       
       {/*Header - llama al comp, enviando props*/}
       <CustomJumbotron
-        title="Búsqueda de SuperHéroes"
+        title="TEST Búsqueda Superhéroes"
         description="Descubre y administra SuperHéroes y Villanos"
       />
 

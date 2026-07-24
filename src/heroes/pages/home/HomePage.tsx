@@ -18,7 +18,7 @@ export const HomePage = () => {
         {/* Header */}
         {/* llama comp. enviando propiedades requeridas */}
         <CustomJumbotron
-          title="Universo de Super-Héroes"
+          title="TEST Universo Superhéroes"
           description="Descubre y administra SuperHéroes y Villanos"
         />
 
