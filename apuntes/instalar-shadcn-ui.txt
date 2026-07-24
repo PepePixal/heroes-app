@@ -20,6 +20,19 @@
 		        ]
 		    }
 
+	/----- ⚠️ ----/	
+	Solución al posible fallo de baseUrl en tsconfig.json:
+	1. tsconfig.json
+	Eliminar "baseUrl": ".". El path "@/*": ["./src/*"] ya resuelve correctamente relativo al directorio del tsconfig.
+	2. tsconfig.app.json
+	- Eliminar "baseUrl": "./src"
+	- Agregar "@/*": ["./src/*"] para que TypeScript resuelva las importaciones de shadcn/ui 
+	  (este mapping faltaba, pero el error de baseUrl ocultaba este problema)
+	- Mantener "*": ["./src/*"] para imports como 05-useReducer/TaskApp
+	/-----------/
+
+	- En un terminal del proyecto:	npm install -D @types/node
+
 	- vite.config.ts agregar:
 		import path from "path"
 		import tailwindcss from "@tailwindcss/vite"
@@ -39,6 +52,10 @@
 		});
 
 	- Run the CLI#: npx shadcn@latest init
+		- Need to install the following packages: shadcn@4.12.0 >> Yes
+		- 🚨Select a component library » Radix
+		- ? Which preset would you like to use? » Nova (estilo visual más moderno)
+	
 
 	- Crear un botón de ejmplo: npx shadcn@latest add button
  	  Esto genera el código del botón en: src/components/ui/button.tsx
