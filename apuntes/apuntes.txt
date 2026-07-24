@@ -115,11 +115,40 @@ TabsContent recibe una prop value que debe coincidir exactamente con el value de
 
 🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66696673-componente-de-paginacion
 
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66700961-menu-superior-identificar-ruta-activa
+
+🔷 useLocation()
+
+Es un hook muy útil que pertenece a React Router (la librería estándar para manejar la navegación y las rutas en aplicaciones de React).
+Su función principal es darte información sobre la URL actual en la que se encuentra el usuario en ese momento.
+
+¿Qué datos te devuelve?
+Cuando ejecutas const location = useLocation(), obtienes un objeto que comúnmente contiene las siguientes propiedades:
+- pathname: Es la ruta actual sin el dominio ni los parámetros de búsqueda (por ejemplo: "/productos" o "/contacto").
+- search: Son los parámetros de búsqueda o query params que van después del signo de interrogación (por ejemplo: "?id=5&sort=asc").
+- hash: El ancla o sección específica de la página que empieza con # (por ejemplo: "#seccion-2").
+- state: Datos ocultos o información adicional que puedes enviar de una página a otra al navegar (muy útil para pasar datos sin que se vean en la URL).
+
+Es especialmente útil para crear efectos visuales (como resaltar el enlace activo en una barra de navegación) o para disparar acciones cuando el usuario cambia de página.
+
+------------
+
+🔷 cn() - función Helper
+
+Para agregar clases (de Tailwind) dinamicas, se aconseja usar la func. helper cn().
+
+	import { cn } from "@/lib/utils";
+	.
+	// Si el path enviado a isActive() es el path actual, isActive retorna (true),
+	// entoces && agrega la clase "bg-slate-200"
+        className={ cn( isActive('/') && "bg-slate-200", "rounded-md p-2 mr-3") }
+
 
 /------/
 
-*
-** PROCESO PROYECTO heroes-app: ***
+
+
+*** PROCESO PROYECTO heroes-app: ***
 
 Creación:
 
@@ -144,6 +173,7 @@ Creación:
 - Crear componente principal src/HeroesApp.tsx y agregarle el RouterProvider
 
 Layouts
+
 - Crear carpeta, archivo y componente, layouts (plantillas): src/heroes/layouts/HeroesLayout.tsx
 - Crear carpeta, archivo y componente, layouts (plantillas): src/admin/layouts/AdminLayout.tsx
 - Agregar los componente HeroesLayout y AdminLayout, y sus hijos, a las rutas app.router.tsx
@@ -217,6 +247,16 @@ Diseño UI en componentes, a partir del diseño de V0 ai.
 - En CustomPagination.tsx hacer las correspondientes importaciones de comps.
 - En HomePage.tsx al final, llamar al comp. <CustomPagination />, importar.
 - En CustomPagination.tsx, definir Props, destruct. props a recibir y programar funcionalidad de los botones de paginación, que se basara en el número de pagina que se mostrará en la url del navegador.
+
+// Menú superior navegación - ruta activa.
+- Instalar el comp navigation-menu, de la biblioteca shadcn - https://ui.shadcn.com/docs/components/base/navigation-menu
+- Ejecutar la instalación con: npx shadcn@latest add navigation-menu
+- Habrá generado el componente src/components/ui/navigation-menu-tsx
+- Crear nuestro archivo y componente src/compnents/custom/CustomMenu.tsx
+- En CustomMenu.tsx en el return(), agregar el menú, siguiendo las instrucciones de https://ui.shadcn.com/docs/components/base/navigation-menu
+- En CustomMenu.tsx agregar la lógica de programación necesaria.
+
+
 
 
 
