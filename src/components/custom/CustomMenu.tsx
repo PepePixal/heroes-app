@@ -37,7 +37,7 @@ export const CustomMenu = () => {
                         // llama al comp <NavigationMenuItem>, al <NavigationMenuLink> con sus atributos dinámicos
                         // y al comp. <Link> con su enlace.
                         menuItems.map( (item) => ( 
-                            <NavigationMenuItem>
+                            <NavigationMenuItem key={item.routeName}>
                                 <NavigationMenuLink
                                     asChild
                                     // Para agregar clases (de Tailwind) dinamicas, se aconseja usar la func. helper cn().

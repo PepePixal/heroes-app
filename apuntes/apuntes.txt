@@ -144,6 +144,142 @@ Para agregar clases (de Tailwind) dinamicas, se aconseja usar la func. helper cn
         className={ cn( isActive('/') && "bg-slate-200", "rounded-md p-2 mr-3") }
 
 
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66701568-breadcrumb-implementar-componente
+
+
+----------------------------------------------------------------
+✅ Sección 14 - SPA - Funcionalidad, caché y optimizaciones
+----------------------------------------------------------------
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66703070-introduccion
+
+Temas puntuales:
+- Axios (Peticiones http)
+- TanStack Query (Gestión de peticiones http)
+- QueryParameters
+- Caché
+- Custom Hooks especializados
+- Paginaciones por categorías
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66703076-continuacion-de-proyecto
+
+Levantar servidor backend con api, proporcionada como recurso del curso.
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66704686-axios-variables-de-entorno-y-api
+
+Variables de entorno, archivo .env
+
+🔷 Axios
+
+En el ecosistema de React, Axios es una biblioteca de JavaScript muy popular que se utiliza para realizar peticiones HTTP (como GET, POST, PUT, DELETE) desde el navegador o desde un servidor (Node.js) hacia una API externa o un backend propio.
+
+Funciona de manera muy similar a la API nativa del navegador fetch(), pero ofrece una serie de ventajas adicionales que facilitan el desarrollo.
+
+Características Principales de Axios:
+
+- Transformación automática de datos: Convierte automáticamente las respuestas recibidas (por ejemplo, desde una API REST) a formato JSON, ahorrándote el paso manual de hacer .json().
+- Interceptores: Permite interceptar peticiones o respuestas antes de que sean manejadas por then o catch. Esto es ideal para añadir tokens de autenticación (como Bearer tokens) a todas las peticiones salientes o manejar errores globales de red.
+- Protección contra XSRF: Ofrece soporte integrado para la protección contra ataques de falsificación de peticiones en sitios cruzados (XSRF).
+- Cancelación de peticiones: Permite cancelar peticiones en curso (muy útil en React cuando un componente se desmonta antes de que termine una llamada asíncrona, previniendo fugas de memoria o errores de estado).
+- Manejo de tiempos de espera (Timeouts): Facilita la configuración de límites de tiempo para las peticiones.
+
+Requiere instalación con: npm i axios
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66704964-tanstack-query-gestor-de-estado-asincrono
+
+🔷 Tanstack QUERY
+
+https://tanstack.com/
+
+TanStack Query (anteriormente conocido como React Query) es una de las librerías más potentes y populares para la gestión, almacenamiento en caché y sincronización de estado asíncrono en aplicaciones web.
+
+Creada por Tanner Linsley, está diseñada para simplificar drásticamente la forma en que los desarrolladores manejan las peticiones a servidores (como llamadas a APIs mediante fetch o axios) y los resultados de las peticiones.
+
+¿Qué problema resuelve?
+
+Tradicionalmente, en frameworks como React, Vue o Solid, guardar los datos de una API requería usar estados locales (useState) y efectos (useEffect), junto con lógica manual para manejar:
+
+- Estados de carga (loading).
+- Manejo de errores (error).
+- Reintentos automáticos si la petición falla.
+- Actualización de datos obsoletos (stale data).
+- Caché para no repetir peticiones innecesarias.
+
+TanStack Query automatiza todo esto, permitiendo escribir código mucho más limpio, rápido y libre de bugs relacionados con la sincronización de datos remotos.
+
+Características Principales:
+
+- Caché inteligente: Almacena automáticamente las respuestas de tus peticiones. Si un componente vuelve a montar o necesita el mismo dato, lo sirve de inmediato desde la caché mientras busca una actualización en segundo plano (estrategia stale-while-revalidate).
+- Sincronización automática: Puede actualizar los datos de la pantalla de forma automática bajo ciertas acciones, por ejemplo:
+- Cuando la pestaña del navegador vuelve a estar activa (refetch on window focus).
+- Cuando el dispositivo recupera la conexión a internet.
+- A intervalos de tiempo configurables.
+- Mutaciones simplificadas: Ofrece herramientas específicas para modificar datos en el servidor (crear, actualizar o borrar) y actualizar la caché automáticamente para reflejar los cambios al instante.
+- Paginación y Infinite Scroll: Incluye hooks especializados para manejar listados largos, carga infinita y paginación de manera sencilla.
+- Independencia de framework: Aunque nació asociado a React, hoy en día es multi-plataforma (TanStack), con adaptadores oficiales para React, Vue, Solid, Svelte y Angular.
+
+-> 🔷 Tanstack Query DevTools 
+
+Las TanStack Query Devtools (Herramientas de Desarrollo) son una interfaz visual flotante integrada en tu aplicación de React que te permite inspeccionar, monitorear y depurar en tiempo real todo lo relacionado con el estado del servidor gestionado por TanStack Query.
+Funcionan de manera muy similar a las herramientas de desarrollo de Redux o a la pestaña "Network" del navegador, pero enfocadas exclusivamente en tus consultas (queries), mutaciones y la caché.
+
+Qué puedes hacer con las Devtools?
+
+- Inspeccionar la caché: Ver exactamente qué datos hay guardados en memoria, qué claves (queryKey) tienen asignadas y cuál es su estructura exacta en formato JSON.
+- Monitorear el estado de las peticiones: Saber al instante si una consulta está activa (fetching), inactiva (inactive), obsoleta (stale) o si ha dado error.
+- Control manual (Forzar acciones):
+	- Forzar una actualización inmediata de los datos (Refetch).
+	- Invalidar consultas de forma manual para ver cómo reacciona la interfaz.
+	- Borrar datos de la caché (Reset / Remove) para probar estados iniciales o de carga.
+- Depurar errores: Visualizar rápidamente por qué falló una petición HTTP y qué parámetros o reintentos se aplicaron.
+
+¿Cómo se ven y se utilizan?
+
+Normalmente se instalan como un paquete adicional y se colocan al final de tu árbol de componentes (por lo general, solo en modo de desarrollo). Tienen el siguiente aspecto en código:
+
+- Instalar las Devtools de tanstack query: npm i @tanstack/react-query-devtools
+- {/* Las Devtools se muestran como un botón flotante en la esquina */}
+    </QueryClientProvider>
+	.
+	.
+	<ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+
+🚨 Al renderizarse, aparece un pequeño logotipo flotante en una esquina de tu pantalla en el navegador. Al hacer clic en él, se despliega un panel interactivo que te muestra toda la actividad de tus peticiones en tiempo real.
+
+-> 🔷 useQuery()
+
+Es el hook principal y más utilizado de TanStack Query en React. Su propósito fundamental es obtener, almacenar en caché, sincronizar y actualizar datos asíncronos (por lo general, mediante una petición HTTP GET a una API) dentro de un componente.
+
+¿Qué hace exactamente?
+
+Cuando llamas a useQuery dentro de un componente, este hook realiza las siguientes tareas de manera automática:
+- Ejecuta la función de petición: Llama a la función que le pasas (la queryFn) para traer los datos del servidor.
+- Administra los estados de carga y error: Te devuelve variables reactivas como isLoading, isError, data y error para que sepas en todo momento qué está pasando sin que tengas que crear estados manuales con useState.
+- Almacena el resultado en caché: Guarda los datos obtenidos utilizando una clave única (queryKey). Si otro componente pide la misma información, se la entrega de inmediato sin volver a llamar a la API.
+- Mantiene los datos sincronizados: Vuelve a buscar los datos en segundo plano bajo ciertas condiciones (como cuando el usuario cambia de pestaña y regresa) para asegurar que la información no esté desactualizada.
+
+¿Cómo se estructura?
+
+useQuery recibe un objeto de configuración que requiere obligatoriamente dos propiedades principales:
+- queryKey: Un array único que identifica la consulta. TanStack Query usa esta clave para gestionar la caché, invalidar datos y saber qué peticiones están asociadas entre sí (ej. ['usuarios'] o ['usuario', id]).
+- queryFn: Una función que devuelve una promesa (por lo general usando fetch o Axios) encargada de ir a buscar los datos al servidor.
+- staleTime: (tiempo de obsolescencia) Define durante cuánto tiempo (ms) los datos obtenidos se consideran "frescos" (fresh) y se mantienen en caché, en la dirección marcada por la queryKey. Esto permite no tener que hacer la misma petición http durante el tiempo establecido. 
+Por defecto, TanStack Query considera que los datos se vuelven obsoletos (stale) inmediatamente (staleTime: 0) en cuanto se descargan.
+
+Qué te devuelve?
+
+El hook devuelve un objeto con múltiples propiedades muy útiles. Las más comunes son:
+- data: Los datos devuelven por el servidor (si la petición fue exitosa).
+- isLoading: true si es la primera vez que se cargan los datos y aún no hay nada en caché.
+- isFetching: true cada vez que se está haciendo una petición al servidor (incluso en segundo plano actualizando la caché).
+- isError: true si ocurrió un fallo.
+- error: El objeto de error detallado.
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66705522-tipado-estricto-de-la-data
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66706523-mostrar-la-data-de-los-heroes
+
 /------/
 
 
@@ -255,6 +391,81 @@ Diseño UI en componentes, a partir del diseño de V0 ai.
 - Crear nuestro archivo y componente src/compnents/custom/CustomMenu.tsx
 - En CustomMenu.tsx en el return(), agregar el menú, siguiendo las instrucciones de https://ui.shadcn.com/docs/components/base/navigation-menu
 - En CustomMenu.tsx agregar la lógica de programación necesaria.
+
+⚠️ Revisar código // Breadcrumbs - migas de pan
+- Crear nuestro archivo y componente src/compnents/custom/CustomBreadcrumbs.tsx
+- Instalar el comp breadcrumb, de la biblioteca shadcn - https://ui.shadcn.com/docs/components/radix/breadcrumb
+- Ejecutar la instalación con: npx shadcn@latest add breadcrumb
+- Seleccionar el código para el estilo de breadcrumb Basic y pegarlo en el comp CustomBreadcrumbs.tsx
+
+Instalación API backend local - recurso del curso
+
+- descargar desde: https://github.com/Klerith/nest-heroes-backend
+- descompirimr la carpetra y renombrarla como proyecto independiente
+- abrir terminal y ejecutar: npm install
+- 🚨 en el mismos terminal, levantar el servidor de la api con: npm run start:dev
+- el servidor se habrá levantado en el puerto 3000
+- se mostraran los endpoints de la api.
+- Abrir postman y probar con GET: localhost:3000/ y localhost:3000/api/heroes (muestra los heroes paginados)
+- El servidor de la api en el backend, tiene que estar levantado siempre.
+
+Variables de entorno
+
+- crear el archvio .env para las variables de entorno
+- crear una copia de .env y renombrala como .env.template, solo con el nombre de las variables, sin valores.
+- agregar el archvivo .env al archivo .gitignore, para que no se suba al repositorio
+
+Axios
+
+Biblioteca de JavaScript para realizar peticiones HTTP (como GET, POST, PUT, DELETE) desde el navegador o desde un servidor (Node.js) hacia una API externa o un backend propio.
+
+- Instalar con: npm i axios
+- crear carpeta y archivo: src/heroes/api/hero.api.ts
+- importar axios, importar la var de entorno VITE_API_URL
+- crear instancia de axios
+
+- crear carpeta y archivo: src/heroes/actions/get-heroes-by-page.action.ts
+- implementar la func básica getHeroesByPage() para la petición a la api
+
+Tanstack QUERY (React query)
+
+Librería potente y popular para la gestión, almacenamiento en caché y sincronización de estado asíncrono en aplicaciones web.
+Diseñada para simplificar drásticamente la forma en que los desarrolladores manejan las peticiones a servidores (como llamadas a APIs mediante fetch o axios) y los resultados de las peticiones.
+
+- Instalación de tanstack query: npm i @tanstack/react-query
+- Recomendación: ESLint Plugin Query to help you catch bugs and inconsistencies while you code. Instalarlo: npm i -D @tanstack/eslint-plugin-query
+- Instalar las Devtools de tanstack query: npm i @tanstack/react-query-devtools
+- 🚨 Para usar transtack query, se requiere crear un queryClient
+- Crear un queryClient en nuestro componente principal src/HeroesApp.tsx
+- Envolver todo el contenido del return en un comp. <QueryClientProviver client={ queryClient}>...</<QueryClientProviver>, enviando como client= nuestro propio queryClient.
+- Llamar al comp de tanstak <ReactQueryDevtools enviando prop. initialIsOpen={false} >. Se genera icono tanstack en la ventana del navegador.
+
+Tipado de la data obtenida, a partir de la repuesta a la petición get de heroes:
+- Crear carpeta y archivo para tipos de datos en: src/heroes/types/get-heroes.response.ts
+- Copiar el resultado de la petición con Postman: localhost:3000/api/heroes
+- En VSC en get-heroes.response.ts, ejecutar Ctrl + Shift + P (Paleta de comandos), teclear Paste JSON as Code, seleccionarlo y ponerle como Top-level type name: HeroesResponse + intro
+- Pegar el código copiado de la respuesta a la petición Get de Postman, en get-heroes.response.ts
+- Crear nuevo archivo src/types/hero.interface.ts
+- Cortar el código interface Hero, del archivo get-heroes.response.ts y pegarlo en el archivo hero.interface.ts
+- En get-heroes.response.ts importar como type, { Hero } con ( Ctrl + . )
+- En el archivo get-heroes-by-page.actins.ts tipar lo retornado por la función como :Promise<HeroesResponse> y el get como <HeroesResponse>
+- La data recibida, ahora debe ser tipo HeroesResponse, pudiendo acceder a las props de HeroesResponse (heroes, pages, total)
+
+Url de las imágenes de heroes:
+- En get-heroes-by-page.action.ts, implementar el código que genera la url de las imágenes y las reasigna a la prop image del heroes.
+- Retornar el nuevo arreglo de heroes con la url de la imagen en la prop image.
+
+Mostrar la data de los heroes:
+- En HomePage.tsx, cambiar el nombre de data a heroResponse con: { data: heroResponse } = useQuery({....})
+- Desde HomePage.tsx, con el componente <HeroGrid enviar la prop heroes={ heroesResponse?.heroes ?? [] } />
+- En HeroGrid.tsx, crear interface Props y destruturar heroes: Props 
+- Mapear el arreglo de heroes y por cada hero, llama a la prop <HeroGridCard enviando el hero >, para que renderice
+- En HeroGridCard.tsx, crear interface Props con hero y destruc. hero de las Props en la función.
+- Sustituir la data en crudo por las correspondientes propiedades del objeto hero (hero.name, etc)
+
+
+
+
 
 
 

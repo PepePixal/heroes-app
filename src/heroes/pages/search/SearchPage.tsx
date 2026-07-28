@@ -1,6 +1,7 @@
 import { CustomJumbotron } from "@/components/custom/CustomJumbotron"
 import { HeroStats } from "@/heroes/components/HeroStats"
 import { SearchControls } from "./ui/SearchControls"
+import { CustomBreadcrumbs } from "@/components/custom/CustomBreadcrumbs"
 
 
 export const SearchPage = () => {
@@ -14,6 +15,9 @@ export const SearchPage = () => {
         title="TEST Búsqueda Superhéroes"
         description="Descubre y administra SuperHéroes y Villanos"
       />
+
+      {/* Breadcrumbs - migas de pan */}
+      {/* <CustomBreadcrumbs currentPage="Buscar Superhéroes" /> */}
 
       {/* Stats Dashboard */}
       <HeroStats />   
