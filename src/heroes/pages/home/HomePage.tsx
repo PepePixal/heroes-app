@@ -17,9 +17,14 @@ export const HomePage = () => {
   // retorna los params actuales de la url y la func. para establecer query parameters en la URL actual 
   const [ searchParams, setSearchParams ] = useSearchParams();
 
-  // obtiene el valor del parámetro ? tab de la url, si no viene nada asigna 'all', a activeTab
+  // obtiene el valor del parámetro ? tab de la url, si no viene nada, asigna 'all', a activeTab
   const activeTab = searchParams.get('tab') ?? 'all';
 
+  // obtiene el valor del param. page de la url, si no viene nada, asigna '1' (string)
+  const page = searchParams.get('page') ?? '1';
+  // obtiene valor del param. limit de la url, si no viene, le asigna '6' por defecto. 
+  const limit = searchParams.get('limit') ?? '6';
+  
   // Para evitar que la app se rompa si un usuario teclea una url desconocida:
   // con el hook useMemo(), caundo cambia el valor de [activeTab],
   // valida si la url contiene alguno de los tabs perimitidos de la lista validTabs y 
@@ -40,8 +45,9 @@ export const HomePage = () => {
   const { data: heroesResponse } = useQuery({
     //llave del espacio en mem caché donde se almacerará la data obtenida.
     queryKey: ['heroes'],
-    //llama a la func. que hace petición http.
-    queryFn: () => getHeroesByPageAction(),
+    //llama a la func. que hace petición http,
+    //enviando argumentos, page (obligatorio) y limit (opcional), transf a numbers.
+    queryFn: () => getHeroesByPageAction(+page, +limit),
     //le indica a tanstack cuanto tiempo (ms) retener en caché, la data obtenida,
     //para servirla desde ahí, sin tener que volver a hacer la misma pet. http.
     staleTime: 1000 * 60 * 5,   // 5 minutos

@@ -399,6 +399,40 @@ Se utiliza comúnmente para manejar estados que deben reflejarse en la URL y ser
 
 Si el usuario escribe "laptop" en una búsqueda, la URL cambiará dinámicamente a /tu-ruta?q=laptop, permitiendo que si copian y pegan ese enlace, la página cargue directamente con la misma búsqueda activa.
 
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66736140-paginar-datos
+
+En este proyecto, la forma de pedir la paginación la determina el backend.
+
+Cuando se dice en el desarrollo frontend (con React o cualquier otro framework) que la forma de paginación la determina el backend, significa que es el servidor (la API) el que define cómo, cuánta y bajo qué reglas se divide y se entrega la información, y el frontend debe adaptarse estricta y pasivamente a esas reglas para mostrarla.
+
+Para entenderlo mejor, conviene repasar los dos grandes enfoques de paginación:
+
+1. Paginación por el Backend (Server-Side Pagination)
+El backend tiene el control absoluto de la base de datos y de la lógica de negocio. Cuando el usuario en tu aplicación de React cambia de página o hace scroll, tu código en React le pide al backend solo un fragmento específico de los datos (por ejemplo, "dame los registros del 11 al 20").
+
+El backend determina aspectos clave como:
+
+- El mecanismo de petición: Puede exigir parámetros de tipo Offset/Limit (ejemplo: ?offset=10&limit=10), de tipo Page/PerPage (ejemplo: ?page=2&per_page=10), o de tipo Cursor (ideal para infinite scroll, donde pides los elementos anteriores o posteriores a un ID específico).
+
+- El tamaño del bloque: El backend decide si te manda bloques de 10, 20 o 50 elementos por defecto, y a veces ni siquiera te permite cambiarlo desde el frontend.
+
+- La estructura de la respuesta: El JSON que devuelve el servidor no es solo un arreglo de datos ([...]), sino un objeto contenedor que incluye metadatos definidos por él, tales como:
+
+JSON
+{
+  "data": [...],
+  "totalItems": 150,
+  "totalPages": 15,
+  "currentPage": 2,
+  "hasNextPage": true
+}
+
+2. ¿Qué pasaría si la determinara el frontend? (Client-Side Pagination)
+Para contrastar, en la paginación por el frontend, el servidor te entrega absolutamente todos los datos de golpe (por ejemplo, los 1,000 registros de una tabla) en una sola petición HTTP.
+
+En este escenario alternativo, React guarda todo ese array gigantesco en su estado local y es el componente de React el que se encarga de recortar el arreglo (array.slice()) según la página en la que esté el usuario.
+
+
 
 /------/
 
@@ -595,6 +629,18 @@ Sustituir useState() por query parameters:
 - Obtener el valor del param tab de la url actual, con .get().
 - Modificar los <TabsTrigger > de <Tabs>, según el valor del tab obtenido de la url actual.
 - Definir función selectedTab para filtrar los parámetros permitidos en la url.
+
+Paginar datos - paginación determinada por el backend (limit y offset):
+- Para la cantidad de registros por página, enviaremos en la peticion http el param limit
+- Para la cantidad de registros que saltamos por página, enviaremos en la peticion http el param offset
+- En get-heroes-by-page.actions.ts, en el componente, definir los parámetros a recibir, para la paginación,
+- en la petición http heroAPI.get, enviar los params limit y offset (el offset se calcula según la pag y el limit, recibidos)
+- En el componente getHeroesByPageAction, definir validación de page y limit.
+- En el HomePage.tsx, obtener page y limit de la url, y definir valores por si vienen vacias,
+- en la property queryFn, enviar page y limit en la llamada a la función getHeroesByPageAction()
+
+
+
 
 
 
