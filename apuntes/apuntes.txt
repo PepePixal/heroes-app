@@ -323,7 +323,7 @@ Puedes pasar información oculta a la siguiente ruta a través de la propiedad s
 	navigate('/perfil', { state: { usuarioId: 123 } });
 (Luego puedes recuperar estos datos en la página de destino usando el hook useLocation).
 
-🔷 useParams()
+🔷 useParams() - react-router hook
 
 useParams() es un Hook de raact-router que permite acceder a los parámetros dinámicos de la URL actual.
 
@@ -343,6 +343,61 @@ Casos de uso comunes:
 - Obtener identificadores para realizar peticiones a una API (fetch/axios) dentro de un useEffect.
 
 🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66732241-queryparameters-sobre-usestate
+
+🔷 URL query parameters - parámetros de búsqueda de la URL
+
+La parte que va después del signo de interrogación ? en la URL de la página.
+
+Las URL query parameters (también conocidos como parámetros de consulta o parámetros GET) son un conjunto de opciones o datos adicionales que se envían al servidor a través de la URL.
+
+Se colocan al final de la dirección web, después de un signo de interrogación (?) son strings, y se utilizan para filtrar, ordenar, buscar o configurar la información que se muestra en la página sin necesidad de cambiar de ruta principal.
+
+Estructura de una URL con Query Parameters
+Una URL con parámetros sigue una estructura estricta:
+
+	https://misitio.com/productos?categoria=ropa&orden=precio-asc&pagina=2
+
+Desglose de los elementos:
+- Ruta base: [https://misitio.com/productos](https://misitio.com/productos) (Indica la página o recurso general).
+- Signo de interrogación (?): Actúa como separador entre la ruta y los parámetros de consulta.
+- Pares de clave-valor: categoria=ropa (La clave es categoria y su valor es ropa).
+- Amperson (&): Se utiliza para separar múltiples parámetros cuando hay más de uno.
+
+¿Para qué se utilizan?
+Son sumamente comunes en el desarrollo web para:
+- Filtros y ordenamiento: ?precio=bajo&color=azul (en tiendas online).
+- Búsquedas: ?q=react+router (en buscadores como Google o barras de búsqueda internas).
+- Paginación: ?page=3 o ?limit=10 (para saber qué lote de datos mostrar).
+- Identificadores de marketing o seguimiento: ?utm_source=newsletter&utm_medium=email (para saber de dónde viene el tráfico).
+
+Características clave:
+- No alteran la ruta principal: /productos sigue siendo la misma página base; los parámetros solo ajustan el contenido interno.
+- Son legibles por el usuario y el navegador: Se pueden copiar, pegar y compartir fácilmente para replicar exactamente el mismo estado visual de la página (por ejemplo, mandar un enlace de un producto filtrado a un amigo).
+- ⚠️ Son públicos: Como viajan directamente en la barra de direcciones del navegador, nunca deben usarse para enviar información sensible o privada como contraseñas o números de tarjetas de crédito.
+- ⚠️ Son opcionales, pueden venir o no en la URL, por lo tanto pueden ser null.
+Por esta razón, en el código siempre se deben manejar valores por defecto (fallbacks) usando operadores lógicos como el operador de cortocircuito (||) o el encadenamiento opcional.
+Si visitas /productos (sin parámetros), terminoBusqueda será null, pero gracias al || '', tu código no fallará y simplemente mostrará el texto vacío en lugar de la palabra "null" en pantalla.
+
+🔷 useSearchParams() - react-router hook
+
+useSearchParams() es otro Hook de react-router fundamental, pero a diferencia de useParams() (que lee los parámetros dinámicos de la ruta), este se usa para leer y modificar los parámetros de búsqueda (query parameters) de la URL (la parte que va después del signo de interrogación ?).
+
+¿Qué es?
+Es un Hook diseñado para interactuar con la cadena de consulta (query string) de la URL actual, similar a cómo funciona useState pero sincronizado directamente con la barra de direcciones del navegador.
+
+¿Qué retorna?
+Retorna un array de dos elementos (muy similar a la estructura de useState):
+- searchParams: Un objeto de la clase URLSearchParams que contiene los parámetros actuales de la URL y métodos para leerlos.
+Ejemplo sobre la url http://localhost:5173/?nombre=pepe , par obtener el nombre: searchParams.get('nombre').
+- setSearchParams: Una función para actualizar o cambiar los parámetros de búsqueda, lo cual actualiza automáticamente la URL sin recargar la página.
+
+¿Para qué se usa?
+Se utiliza comúnmente para manejar estados que deben reflejarse en la URL y ser compartidos o guardados fácilmente, tales como:
+- Filtros y ordenamiento en listados de productos (ej. ?categoria=zapatos&orden=precio-asc).
+- Sistemas de paginación (ej. ?pagina=2).
+- Términos de búsqueda en una barra de búsqueda (ej. ?q=react).
+
+Si el usuario escribe "laptop" en una búsqueda, la URL cambiará dinámicamente a /tu-ruta?q=laptop, permitiendo que si copian y pegan ese enlace, la página cargue directamente con la misma búsqueda activa.
 
 
 /------/
@@ -534,6 +589,13 @@ Navegación manual dentro de las tarjetas de heroes:
 - En HeroGridCard.tsx, dentro del comp. HeroGridCard, definir const para la func que retorna el hook useNavigate()
 - Agretar una func manejadora de click para usar la func que retorna useNavigate() a la const. usenavigate
 - A la img, agregar la prop onClick que llame a la func
+
+Sustituir useState() por query parameters:
+- En HomePage.tsx, sustituir el useState de activeTab, por query parameters, con el hook de react-router useSearchParams(), similar a un useState().
+- Obtener el valor del param tab de la url actual, con .get().
+- Modificar los <TabsTrigger > de <Tabs>, según el valor del tab obtenido de la url actual.
+- Definir función selectedTab para filtrar los parámetros permitidos en la url.
+
 
 
 

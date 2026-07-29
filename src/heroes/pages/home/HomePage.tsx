@@ -1,5 +1,6 @@
 
-import { useState } from "react"
+import { useMemo } from "react"
+import { useSearchParams } from "react-router"
 import { useQuery } from "@tanstack/react-query"
 
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
@@ -12,9 +13,24 @@ import { getHeroesByPageAction } from "@/heroes/actions/get-heroes-by-page.actio
 
 export const HomePage = () => {
 
-  // hook useState temporal para manejar el state del Tab activo. Iniciado con 'all' y
-  // que puede tener cualquier de los estados: 'all', 'favorites', 'heroes', 'villains' 
-  const [ activeTab, setActiveTab] = useState<'all' | 'favorites' | 'heroes' | 'villains'>('all');
+  // def. hook de react-router para manejar los URL query parameters. Similar al hook useState(),
+  // retorna los params actuales de la url y la func. para establecer query parameters en la URL actual 
+  const [ searchParams, setSearchParams ] = useSearchParams();
+
+  // obtiene el valor del parámetro ? tab de la url, si no viene nada asigna 'all', a activeTab
+  const activeTab = searchParams.get('tab') ?? 'all';
+
+  // Para evitar que la app se rompa si un usuario teclea una url desconocida:
+  // con el hook useMemo(), caundo cambia el valor de [activeTab],
+  // valida si la url contiene alguno de los tabs perimitidos de la lista validTabs y 
+  // si no le asigna 'all'.
+  const selectedTab = useMemo(() => {
+    //def. lista de los parametros pemitidos en la url
+    const validTabs = ['all', 'favorites', 'heroes', 'villains']
+    // si validTabs incluye el valor del parametro activeTab, obtenido de la url,
+    // retorna el activeTab a selectedTab, : de lo contrario, retorna 'all' a selectedTab
+    return validTabs.includes(activeTab) ? activeTab : 'all';
+  },[activeTab]);
 
 
   // useQuery(), hook de tanstack que gestiona, almacena en caché, sincroniza y actualiza,
@@ -32,7 +48,6 @@ export const HomePage = () => {
   });
 
   console.log({heroesResponse});
-
 
   // !  NO aconsejado. Otra forma de llamar a la func. que hace la petición http.
   // useEffect(() => {
@@ -59,21 +74,51 @@ export const HomePage = () => {
         <HeroStats />
 
         {/* Tabs (etiquetas o pestañas) */}
-        <Tabs value={activeTab} className="mb-8">
+        {/* El value del tab seleccionado será siempre el valor que tenga la const selectedTab */}
+        <Tabs value={selectedTab} className="mb-8">
+
+          {/* listado de Tabs - etiquetas o pestañas */}
+
           <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="all"
-              onClick={ () => setActiveTab('all') }>Todos
+              // al pulsar sobre el tab Todos, se inserta el parámetro ?tab=all en la url activa,
+              // conservando los posibles parámetros posteriores al símbolo & 
+              onClick={ () => setSearchParams( ( prev ) => {
+                prev.set('tab', 'all');
+                return prev;
+              })}
+            >
+              Todos
             </TabsTrigger>
             <TabsTrigger value="favorites" className="flex items-center gap-2"
-              onClick={ () => setActiveTab('favorites') }>Favoritos
+                onClick={ () => setSearchParams( ( prev ) => {
+                prev.set('tab', 'favorites');
+                return prev;
+              })}
+            >
+              Favoritos
             </TabsTrigger>
             <TabsTrigger value="heroes"
-              onClick={ () => setActiveTab('heroes') }>Héroes
+                onClick={ () => setSearchParams( ( prev ) => {
+                prev.set('tab', 'heroes');
+                return prev;
+              })}
+              
+            >
+              Héroes
             </TabsTrigger>
             <TabsTrigger value="villains"
-              onClick={ () => setActiveTab('villains')}>Villanos
+                onClick={ () => setSearchParams( ( prev ) => {
+                prev.set('tab', 'villains');
+                return prev;
+              })}
+            >
+              Villanos
             </TabsTrigger>
           </TabsList>
+
+          {/* Contenido a mostrar,
+           según el value obtenido del param ?tab= de la url y asignado a activeTab */}
 
           <TabsContent value='all'>
             <h1>Todos los Personajes</h1>
@@ -97,6 +142,7 @@ export const HomePage = () => {
             {/* Mostrar grid de tarjetas, de los Villanos */}
             <HeroGrid heroes={[]} />
           </TabsContent>
+
         </Tabs>
 
         {/* Pagination */}
