@@ -1,4 +1,5 @@
 
+import { useNavigate } from "react-router"
 import { Heart, Eye, Zap, Brain, Gauge, Shield } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -12,16 +13,28 @@ interface Props {
 
 export const HeroGridCard = ( {hero}: Props ) => {
 
-  return (
 
+    //hook de react-router retorna a navigate una funcion que
+    //ejecutaremos posteriormente para cambiar de ruta,
+    //esta función acepta los parámetros to y options.
+    const navigate = useNavigate();
+
+    //manejador del click sobre las tarjetas, con navegación dinámica
+    const handleClick = () => {
+        //navegar al path /heros/ del route, enviando la prop slug del hero
+        navigate(`/heros/${hero.slug}`);
+    };
+
+  return (
     <>
         {/* Hero Card */}
         <Card className="group overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-linear-to-br from-white to-gray-50">
-            <div className="relative h-64 overflow-hidden">
+            <div className="relative h-64">
                 <img
                 src={hero.image}
                 alt={hero.name}
-                className="object-cover transition-all duration-500 group-hover:scale-110"
+                className="object-cover transition-all duration-500 group-hover:scale-110 absolute top-[-20px] w-full h-[380px]"
+                onClick={handleClick}
                 />
 
                 {/* Status indicator */}
@@ -57,7 +70,7 @@ export const HeroGridCard = ( {hero}: Props ) => {
                 </Button>
             </div>
 
-            <CardHeader className="pb-3">
+            <CardHeader className="py-3 z-10 bg-gray-100/50 backdrop-blur-sm relative top-1 group-hover:top-[-10px] transition-all duration-300">
                 <div className="flex justify-between items-start">
                     <div className="space-y-1">
                         <h3 className="font-bold text-lg leading-tight">{hero.alias}</h3>
@@ -127,6 +140,5 @@ export const HeroGridCard = ( {hero}: Props ) => {
             </CardContent>
         </Card>
     </>
-
-  )
-}
+  );
+};

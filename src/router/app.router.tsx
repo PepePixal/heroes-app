@@ -1,6 +1,6 @@
 
 import { lazy } from 'react';
-import { createBrowserRouter } from 'react-router'
+import { createBrowserRouter, Navigate } from 'react-router'
 import { HomePage } from '../heroes/pages/home/HomePage';
 import { HeroPage } from '@/heroes/pages/hero/HeroPage';
 import { SearchPage } from '@/heroes/pages/search/SearchPage';
@@ -25,13 +25,21 @@ export const appRotuer = createBrowserRouter([
                 element: <HomePage />
             },
             {
-                path:'heros/1',
+                //path dinámico, recibiendo : el slug del hero en idSlug
+                path:'heros/:idSlug',
                 element: <HeroPage />
             },
             {
                 path:'search',
                 element: <SearchPage />
             },
+            {
+                //cuaquier path que no esté definido, reenvia a la página de incio /
+                path:'*',
+                element: <Navigate to='/' />
+                //element: <h1>404</h1>
+            },
+
         ]
     },
 

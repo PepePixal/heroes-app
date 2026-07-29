@@ -280,6 +280,71 @@ El hook devuelve un objeto con múltiples propiedades muy útiles. Las más comu
 
 🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66706523-mostrar-la-data-de-los-heroes
 
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66731528-navegacion-manual-dentro-de-las-tarjetas
+
+🔷 useNavigate() - react-router hook
+
+En React, useNavigate es un hook introducido en React Router (a partir de la versión 6) que sirve para navegar de forma imperativa entre las diferentes rutas de una aplicación (es decir, cambiar de página o vista mediante código, como respuesta a una acción del usuario).
+
+Antes de la versión 6, esto se hacía principalmente con el componente <Redirect> o usando el objeto history pasado por las props. Hoy en día, useNavigate es el estándar moderno y recomendado.
+
+useNavigate devuelve exactamente una función (que comúnmente llamamos navigate).
+Esta función es la que ejecutas posteriormente para cambiar de ruta y acepta dos parámetros:
+- to: Puede ser un string con la ruta de destino (ej. '/dashboard', '/perfil') o un número para moverse en el historial (ej. -1 para retroceder).
+- options (opcional): Un objeto con configuraciones adicionales como { replace: true } o { state: { ... } }.
+
+¿Para qué sirve? (Casos de uso principales)
+
+Se utiliza cuando necesitas redirigir al usuario a otra ruta tras un evento o condición, por ejemplo:
+- Tras enviar un formulario: Una vez que el usuario hace login o registra un producto con éxito, lo envías al dashboard o al inicio.
+- Botones de "Volver atrás" o "Siguiente": Controlar el historial de navegación de forma personalizada.
+- Validaciones de acceso: Si un usuario no está autenticado, lo rediriges automáticamente a la pantalla de inicio de sesión.
+
+¿Cómo se usa? (Ejemplo práctico)
+
+Para usarlo, debes estar dentro de un componente que esté envuelto por un <BrowserRouter> (o cualquier otro router de React Router).
+
+Opciones y funcionalidades avanzadas
+
+El hook navigate que te devuelve la función acepta dos argumentos principales: navigate(to, options)
+
+Navegar hacia adelante o atrás en el historial:
+- Puedes pasarle números enteros en lugar de una ruta, imitando los botones del navegador:
+	navigate(1) avanza una página.
+	navigate(-1) retrocede una página (equivale al botón "Atrás").
+	navigate(-2) retrocede dos páginas.
+
+- Reemplazar la ruta actual (replace):
+Si no quieres que la página actual se guarde en el historial del navegador (útil para que el usuario no pueda volver atrás con la flecha del navegador, por ejemplo, tras hacer logout):
+	navigate('/login', { replace: true });
+
+- Enviar datos (State):
+Puedes pasar información oculta a la siguiente ruta a través de la propiedad state:
+	navigate('/perfil', { state: { usuarioId: 123 } });
+(Luego puedes recuperar estos datos en la página de destino usando el hook useLocation).
+
+🔷 useParams()
+
+useParams() es un Hook de raact-router que permite acceder a los parámetros dinámicos de la URL actual.
+
+¿Qué es?
+Es una función proporcionada por React Router que conecta tus componentes con la estructura de la ruta actual sin necesidad de pasar props de forma manual desde el componente principal.
+
+¿Qué retorna?
+Retorna un objeto JavaScript que contiene los pares de clave-valor de los parámetros dinámicos definidos en la ruta.
+- Las claves corresponden a los nombres que definiste con dos puntos : en el path de la ruta.
+- Los valores son los datos reales que vienen en la URL en ese momento. (Nota: los valores devueltos son siempre de tipo string).
+
+¿Para qué se usa?
+Se utiliza principalmente para crear rutas dinámicas y renderizar contenido personalizado según el parámetro de la URL.
+Casos de uso comunes:
+- Mostrar el perfil de un usuario específico (/perfil/:username).
+- Cargar los detalles de un producto o artículo de blog (/productos/:id).
+- Obtener identificadores para realizar peticiones a una API (fetch/axios) dentro de un useEffect.
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66732241-queryparameters-sobre-usestate
+
+
 /------/
 
 
@@ -463,7 +528,12 @@ Mostrar la data de los heroes:
 - En HeroGridCard.tsx, crear interface Props con hero y destruc. hero de las Props en la función.
 - Sustituir la data en crudo por las correspondientes propiedades del objeto hero (hero.name, etc)
 
-
+Navegación manual dentro de las tarjetas de heroes:
+- Se podría envolver la img de cada tarjeta en un link que enlazara a una nueva página, pero no lo haremos así.
+- Usaremos el hook de react-router useNavigate()
+- En HeroGridCard.tsx, dentro del comp. HeroGridCard, definir const para la func que retorna el hook useNavigate()
+- Agretar una func manejadora de click para usar la func que retorna useNavigate() a la const. usenavigate
+- A la img, agregar la prop onClick que llame a la func
 
 
 
