@@ -43,10 +43,13 @@ export const HomePage = () => {
   // ? " data " extrae (desestructuracion) la propiedad data del objeto que devuelve useQuery y 
   // ? " : heroesResponse " cambia el nombre de "data" a "heroesResponse" para que sea más descriptivo en el componente.
   const { data: heroesResponse } = useQuery({
-    //llave del espacio en mem caché donde se almacerará la data obtenida.
-    queryKey: ['heroes'],
+    //llaves de los espacios en mem caché donde se almacerará la data obtenida.
+    //Como las props page y limit (no son posicionales) pueden variar su posición en la url, 
+    //se aconseja enviarlas en un objeto { page: +page, limit: +limit } abreviando {page, limit}
+    queryKey: ['heroes', {page, limit}],
     //llama a la func. que hace petición http,
     //enviando argumentos, page (obligatorio) y limit (opcional), transf a numbers.
+    // 🚨 los argumentos que se envian a la func., tienen que estar definidos en la prop queryKey
     queryFn: () => getHeroesByPageAction(+page, +limit),
     //le indica a tanstack cuanto tiempo (ms) retener en caché, la data obtenida,
     //para servirla desde ahí, sin tener que volver a hacer la misma pet. http.
@@ -152,8 +155,8 @@ export const HomePage = () => {
         </Tabs>
 
         {/* Pagination */}
-        {/* llama comp., no requiere props */}
-        <CustomPagination totalPages={8} />
+        {/* llama comp., enviando la prop totalPages, obtenidas de la petición http */}
+        <CustomPagination totalPages={heroesResponse?.pages ?? 1} />
       </>
     </>
   )

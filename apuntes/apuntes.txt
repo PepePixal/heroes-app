@@ -432,6 +432,9 @@ Para contrastar, en la paginación por el frontend, el servidor te entrega absol
 
 En este escenario alternativo, React guarda todo ese array gigantesco en su estado local y es el componente de React el que se encarga de recortar el arreglo (array.slice()) según la página en la que esté el usuario.
 
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66736516-componente-de-paginacion
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66737607-mostrar-resumen-estadistico
 
 
 /------/
@@ -639,9 +642,16 @@ Paginar datos - paginación determinada por el backend (limit y offset):
 - En el HomePage.tsx, obtener page y limit de la url, y definir valores por si vienen vacias,
 - en la property queryFn, enviar page y limit en la llamada a la función getHeroesByPageAction()
 
+Componente de paginación:
+- La paginación funcionará tomando la información de los query parameters de la url.
+- En CustomPagination.tsx componente, obtener los parámetros [searchParams y setSearchParams] de la url con el hook useSearchParams(),
+- obtener con .get, la pagina del parámetro searchParams,
+- validar si la página es un número y asignarla a la const page, que es la que se usa en el renderizado,
+- definir func. manejadora para los botones de cambio de página, handlePageChange,
+- agrear el onClick con la llamada a la función handlePageChange, a los Buttons
+- En HomePage.tsx, en el hook useQuery, en la prop. queryKey:[], definir las props page y limit en un obj. dentro de arreglo.
 
-
-
+Mostrar resumen estadístico:
 
 
 
