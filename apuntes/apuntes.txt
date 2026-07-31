@@ -676,7 +676,12 @@ El endpoint localhost:3000/api/heroes/summary y el useQuery(), son los mismos qu
 - En HomePage.tsx, sustituir el useQuery de summary, por el llamado a nuestro nuevo custom Hook useHeroSummary.
 - En HeroStats.tsx, tanbién sustituir el useQuery de summary, por el llamado a nuestro nuevo custom Hook useHeroSummary.
 
-⚠️ Crear un nuevo custom Hook reutilizable para sustituir el useQuery a heroes, de HomePage.tsx 
+⚠️ Crear un nuevo custom Hook reutilizable "usePaginateHero.tsx" para sustituir el useQuery a heroes, de la HomePage.tsx dejando el código más limpio en esta página.
+
+
+
+
+
 
 
 

@@ -7,6 +7,7 @@ export const useHeroSummary = () => {
     // useQuery(), hook de TansTack que gestiona, almacena en caché, sincroniza y actualiza
     // la data obtenida con la queryFn: que hace la petición http.
     // 🚨 Retornamos un objeto con: la data obtenida y toda la info que proporciona en hook useQuery
+    
     return useQuery({
         //llaves de los espacios en mem caché donde se almacerará la data obtenida.
         queryKey:['summary-information'],

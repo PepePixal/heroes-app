@@ -1,15 +1,14 @@
 
 import { useMemo } from "react"
 import { useSearchParams } from "react-router"
-import { useQuery } from "@tanstack/react-query"
 
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { CustomJumbotron } from "@/components/custom/CustomJumbotron"
 import { HeroStats } from "@/heroes/components/HeroStats"
 import { HeroGrid } from "@/heroes/components/HeroGrid"
 import { CustomPagination } from "@/components/custom/CustomPagination"
-import { getHeroesByPageAction } from "@/heroes/actions/get-heroes-by-page.action"
 import { useHeroSummary } from "@/heroes/hooks/useHeroSummary"
+import { usePaginatedHero } from "@/heroes/hooks/usePaginatedHero"
 //import { CustomBreadcrumbs } from "@/components/custom/CustomBreadcrumbs"
 
 export const HomePage = () => {
@@ -38,25 +37,9 @@ export const HomePage = () => {
     return validTabs.includes(activeTab) ? activeTab : 'all';
   },[activeTab]);
 
-
-  // useQuery(), hook de tanstack que gestiona, almacena en caché, sincroniza y actualiza,
-  // la data obtenida con la queryFn: que hace la petición http.
-  // "data" extrae (desestructuracion) la propiedad data del objeto que devuelve useQuery y 
-  // ": heroesResponse" cambia el nombre de "data" a "heroesResponse" para que sea más descriptivo en el componente.
-  const { data: heroesResponse } = useQuery({
-    //llaves de los espacios en mem caché donde se almacerará la data obtenida.
-    //Como las props page y limit (no son posicionales) pueden variar su posición en la url, 
-    //se aconseja enviarlas en un objeto { page: +page, limit: +limit } abreviando {page, limit}
-    queryKey: ['heroes', {page, limit}],
-    //llama a la func. que hace petición http,
-    //enviando argumentos, page (obligatorio) y limit (opcional), transf a numbers.
-    // 🚨 los argumentos que se envian a la func., tienen que estar definidos en la prop queryKey
-    queryFn: () => getHeroesByPageAction(+page, +limit),
-    //le indica a tanstack cuanto tiempo (ms) retener en caché, la data obtenida,
-    //para servirla desde ahí, sin tener que volver a hacer la misma pet. http.
-    staleTime: 1000 * 60 * 5,   // 5 minutos
-  });
-
+  //llama nuestro custom Hook que obtiene la data de /heroes/ (Heroes),
+  //destructura la prop "data" de lo retornado y la renombra como heroesResponse para facilitar su uso
+  const { data: heroesResponse} = usePaginatedHero(+page, +limit)
 
   //llama nuestro custom Hook que obtiene la data de /summary (Resumen de Estadísticas),
   //destructura la prop "data" de lo retornado y la renombra como summary para facilitar su uso

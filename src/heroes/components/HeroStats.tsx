@@ -26,10 +26,10 @@ export const HeroStats = () => {
                 <div className="text-2xl font-bold">{summary?.totalHeroes}</div>
                     <div className="flex gap-1 mt-2">
                         <Badge variant="secondary" className="text-xs">
-                            {summary?.heroCount} Heroes
+                            {summary?.heroCount} Héroes
                         </Badge>
                         <Badge variant="destructive" className="text-xs">
-                            {summary?.villainCount} Villains
+                            {summary?.villainCount} Villanos
                         </Badge>
                     </div>
             </HeroStatCard>    
