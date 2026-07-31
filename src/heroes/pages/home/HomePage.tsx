@@ -9,6 +9,7 @@ import { HeroStats } from "@/heroes/components/HeroStats"
 import { HeroGrid } from "@/heroes/components/HeroGrid"
 import { CustomPagination } from "@/components/custom/CustomPagination"
 import { getHeroesByPageAction } from "@/heroes/actions/get-heroes-by-page.action"
+import { useHeroSummary } from "@/heroes/hooks/useHeroSummary"
 //import { CustomBreadcrumbs } from "@/components/custom/CustomBreadcrumbs"
 
 export const HomePage = () => {
@@ -40,8 +41,8 @@ export const HomePage = () => {
 
   // useQuery(), hook de tanstack que gestiona, almacena en caché, sincroniza y actualiza,
   // la data obtenida con la queryFn: que hace la petición http.
-  // ? " data " extrae (desestructuracion) la propiedad data del objeto que devuelve useQuery y 
-  // ? " : heroesResponse " cambia el nombre de "data" a "heroesResponse" para que sea más descriptivo en el componente.
+  // "data" extrae (desestructuracion) la propiedad data del objeto que devuelve useQuery y 
+  // ": heroesResponse" cambia el nombre de "data" a "heroesResponse" para que sea más descriptivo en el componente.
   const { data: heroesResponse } = useQuery({
     //llaves de los espacios en mem caché donde se almacerará la data obtenida.
     //Como las props page y limit (no son posicionales) pueden variar su posición en la url, 
@@ -56,13 +57,10 @@ export const HomePage = () => {
     staleTime: 1000 * 60 * 5,   // 5 minutos
   });
 
-  console.log({heroesResponse});
 
-  // !  NO aconsejado. Otra forma de llamar a la func. que hace la petición http.
-  // useEffect(() => {
-  //   getHeroesByPageAction().then(()=> {
-  //   });
-  // }, []);
+  //llama nuestro custom Hook que obtiene la data de /summary (Resumen de Estadísticas),
+  //destructura la prop "data" de lo retornado y la renombra como summary para facilitar su uso
+  const { data: summary } = useHeroSummary();
 
 
   return (
@@ -97,7 +95,7 @@ export const HomePage = () => {
                 return prev;
               })}
             >
-              Todos
+              Todos ({summary?.totalHeroes})
             </TabsTrigger>
             <TabsTrigger value="favorites" className="flex items-center gap-2"
                 onClick={ () => setSearchParams( ( prev ) => {
@@ -105,7 +103,7 @@ export const HomePage = () => {
                 return prev;
               })}
             >
-              Favoritos
+              Favoritos (3)
             </TabsTrigger>
             <TabsTrigger value="heroes"
                 onClick={ () => setSearchParams( ( prev ) => {
@@ -114,7 +112,7 @@ export const HomePage = () => {
               })}
               
             >
-              Héroes
+              Héroes ({summary?.heroCount})
             </TabsTrigger>
             <TabsTrigger value="villains"
                 onClick={ () => setSearchParams( ( prev ) => {
@@ -122,7 +120,7 @@ export const HomePage = () => {
                 return prev;
               })}
             >
-              Villanos
+              Villanos ({summary?.villainCount})
             </TabsTrigger>
           </TabsList>
 

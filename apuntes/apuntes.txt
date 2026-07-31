@@ -436,6 +436,11 @@ En este escenario alternativo, React guarda todo ese array gigantesco en su esta
 
 🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66737607-mostrar-resumen-estadistico
 
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66739636-customhook-usesummary-solucion-de-tarea
+
+🔷 Custom hook useSumary
+
+
 
 /------/
 
@@ -652,9 +657,26 @@ Componente de paginación:
 - En HomePage.tsx, en el hook useQuery, en la prop. queryKey:[], definir las props page y limit en un obj. dentro de arreglo.
 
 Mostrar resumen estadístico:
+El end-point donde solicitar las estadísticas es: localhost:3000/api/heroes/summary
+- Crear nuevo archivo de acción (petición http) en: src/heroes/actions/get-summary.action.ts,
+- definir la petición http con axios en heroApi, a '/summary.
+- Crear el archivo para el tipo de datos que recibiremos de la petición. src/heroes/types/summary-information.response.ts
+- Con Postman, hacer una petición get a localhost:3000/api/heroes/summary y copiar la respuesta.
+- En summary-information.response.ts, paleta de comandos (Ctrl+May+P), Paste JSON as Code, type name: SummaryInformationResponse, intro,
+- cambiar el tipo EstHero por tipo Hero e importarlo, eliminar el interface EstHero 
+- En get-summary.action.ts, agregar el tipo <SummaryInformationResponse> al heroApi.get<...>
+- En el comp HeroStats.tsx, obtener la data del summary con el hook useQuery() de @tanstak,
+- en el return render, cambiar los datos en crudo por datos dinámicos, obtenidos en la data: summary
+ 
+Mostrar totales en los Tabs (pestañas o etiquetas)
+El endpoint localhost:3000/api/heroes/summary y el useQuery(), son los mismos que hemos utilizado en get-summary.action.ts para las estadísticas, por tanto podemos reutilizar el useQeury() centralizandolo en un nuevo customHook reutilizable.
+- Crear component custom Hook en src/heroes/hooks/useHeroSummary.tsx,
+- copiar el Tanstack hook useQuery() de HeroStats.tsx y pegarlo en el component useHeroSummary y hacer los imports necesarios,
+- modificar el código para que el componente retorne todo objeto que retorna useQuery, que contiene la data y la info que proporciona useQuery.
+- En HomePage.tsx, sustituir el useQuery de summary, por el llamado a nuestro nuevo custom Hook useHeroSummary.
+- En HeroStats.tsx, tanbién sustituir el useQuery de summary, por el llamado a nuestro nuevo custom Hook useHeroSummary.
 
-
-
+⚠️ Crear un nuevo custom Hook reutilizable para sustituir el useQuery a heroes, de HomePage.tsx 
 
 
 

@@ -5,7 +5,7 @@ import type { HeroesResponse } from "../types/get-heroes.response";
 //obtiene la base de la url, desde las vars de entorno
 const BASE_URL = import.meta.env.VITE_API_URL;
 
-//func. asíncrona que hace la llamada http Get, a través de heroApi,
+//func. asíncrona que hace la llamada http Get, con axios a través de heroApi,
 // recibe params. y retorna promesa y resolución tipo HeroesResponse.
 export const getHeroesByPageAction = async( 
     //parámetros a recibir, para la paginación, page obligatorio y limit opcional
@@ -24,7 +24,7 @@ export const getHeroesByPageAction = async(
         limit = 6;
     };
 
-    // obtiene la data con la petición heroApi.get a /,
+    // petición http con axios en heroApi.get, a ${BASE_URL}/api/heroes/,
     // que retornará data tipo <HeroesResonse> (page, total, heroes[])
     const {data} = await heroApi.get<HeroesResponse>(`/`, {
         // envio de parámetros a la api, para la paginación
