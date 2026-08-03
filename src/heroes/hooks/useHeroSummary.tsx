@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getSummaryAction } from "../actions/get-summary.action";
 
-
+// custom hook
 export const useHeroSummary = () => {
     
     // useQuery(), hook de TansTack que gestiona, almacena en caché, sincroniza y actualiza
@@ -19,6 +19,4 @@ export const useHeroSummary = () => {
         staleTime: 1000 * 60 * 5,   // 5 minutos
     });
     
-    
-
 }

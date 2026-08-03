@@ -440,6 +440,10 @@ En este escenario alternativo, React guarda todo ese array gigantesco en su esta
 
 🔷 Custom hook useSumary
 
+🟠 tps://cursos.devtalles.com/courses/take/react-de-cero/lessons/66740800-paginar-por-categoria
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66741675-pagina-de-heroe
+
 
 
 /------/
@@ -678,7 +682,16 @@ El endpoint localhost:3000/api/heroes/summary y el useQuery(), son los mismos qu
 
 ⚠️ Crear un nuevo custom Hook reutilizable "usePaginateHero.tsx" para sustituir el useQuery a heroes, de la HomePage.tsx dejando el código más limpio en esta página.
 
-
+Paginación por categoría
+- En HomePage.tsx, obtener el param category de la url, si no viene, asignar 'all',
+- agregar el param category a los params enviados en UsePaginateHero(),
+- agregar param category y valor correspondiente a los onClick de los <TabsTrigger,
+- agregar param page y valor '1', a los onClick de los <TabsTrigger,
+- agregar el comp <HroGrid... a los tabs content 'heroes' y 'villains'
+- En usePaginatedHero.tsx, agregar el param a recibir, category inicializado a 'all',
+- agregar el param category a los params enviados en getHeroesByPageAction().
+- En get-heroes-by-page.action.tsx, agregar el param a recibir, category inicializado a 'all',
+- agregar el param category a la petición http heroApi.get (axios).
 
 
 

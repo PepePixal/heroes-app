@@ -10,7 +10,8 @@ const BASE_URL = import.meta.env.VITE_API_URL;
 export const getHeroesByPageAction = async( 
     //parámetros a recibir, para la paginación, page obligatorio y limit opcional
     page: number,
-    limit: number = 6 
+    limit: number = 6, 
+    category: string = 'all'
 
 ): Promise<HeroesResponse> => {
 
@@ -31,6 +32,7 @@ export const getHeroesByPageAction = async(
         params: {
             limit: limit,               // registros por pagina
             offset: (page -1) * limit,  // registros saltados, calculados según page y limit, recibidos
+            category: category,         // categoría de personajes (hérotes, villanos, todos)
         }
     });
 
@@ -40,7 +42,7 @@ export const getHeroesByPageAction = async(
     // con la variable de entorno, /images/ y el nombre de la imagen.
     const heroes = data.heroes.map( hero => ({
         // copia todas las propiedades existentes del objeto hero original 
-        // (como id, name, superpower, etc.) en el nuevo objeto.
+        // (como id, name, superpower, etc.) en el nuevo objeto. Por inmutabilidad
         ... hero, 
         // sobreescribe la prop image, con la url a la imagen, generada
         image: `${BASE_URL}/images/${hero.image}`
