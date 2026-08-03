@@ -16,7 +16,6 @@ export const CustomMenu = () => {
     const menuItems: MenuItem[] = [
         { title: 'Inicio', routeName: '/' },
         { title: 'Burcar Superhéroes', routeName: '/search' },
-        { title: 'Heroes', routeName: '/heros/1' },
     ];
 
     // hook de react-router que retorna un objeto con información de la URL actual:
@@ -30,7 +29,7 @@ export const CustomMenu = () => {
 
     return (
         <>
-         <NavigationMenu className="mb-3">
+         <NavigationMenu className="py-5">
              <NavigationMenuList>
                     {
                         // mapea el arreglo de elementos del menú y por cada elemento,

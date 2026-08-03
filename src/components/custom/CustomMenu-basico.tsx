@@ -41,16 +41,6 @@ export const CustomMenu = () => {
                     </NavigationMenuLink>
                  </NavigationMenuItem>
 
-                 {/* Héroes */}
-                 <NavigationMenuItem>
-                    <NavigationMenuLink
-                        asChild
-                        className={cn(isActive('/heros/1') && 'bg-slate-300', 'rounded-md p-2 mr-3')}
-                    >
-                        <Link to="/search">Héroes</Link>
-                    </NavigationMenuLink>
-                 </NavigationMenuItem>
-
              </NavigationMenuList>
          </NavigationMenu>
         
