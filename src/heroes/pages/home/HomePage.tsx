@@ -1,5 +1,5 @@
 
-import { useMemo } from "react"
+import { use, useMemo } from "react"
 import { useSearchParams } from "react-router"
 
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
@@ -9,9 +9,14 @@ import { HeroGrid } from "@/heroes/components/HeroGrid"
 import { CustomPagination } from "@/components/custom/CustomPagination"
 import { useHeroSummary } from "@/heroes/hooks/useHeroSummary"
 import { usePaginatedHero } from "@/heroes/hooks/usePaginatedHero"
+import { FavoriteHeroContext } from "@/heroes/context/FavoriteHeroContext"
 //import { CustomBreadcrumbs } from "@/components/custom/CustomBreadcrumbs"
 
 export const HomePage = () => {
+
+  // invocar el contexto de favorites, con la api use() (a partir de React 19),
+  // desestruc la prop favoriteCount del contexto FavoriteHeroContext
+  const { favoriteCount, favorites } = use(FavoriteHeroContext);
 
   // def. hook de react-router para manejar los URL query parameters. Similar al hook useState(),
   // retorna los params actuales de la url y la func. para establecer query parameters en la URL actual 
@@ -98,7 +103,7 @@ export const HomePage = () => {
                 return prev;
               })}
             >
-              Favoritos (3)
+              Favoritos ({favoriteCount})
             </TabsTrigger>
 
             <TabsTrigger value="heroes"
@@ -136,7 +141,8 @@ export const HomePage = () => {
 
           <TabsContent value='favorites'>
             <h1>Los Favoritos</h1>
-            {/* <HeroGrid heroes={ heroesResponse?.heroes ?? [] } /> */}
+            {/* Mostrar todos los heros favoritos */}
+            <HeroGrid heroes={favorites} />
           </TabsContent>
 
           <TabsContent value='heroes'>
@@ -152,9 +158,13 @@ export const HomePage = () => {
 
         </Tabs>
 
-        {/* Pagination */}
-        {/* llama comp., enviando la prop totalPages, obtenidas de la petición http */}
-        <CustomPagination totalPages={heroesResponse?.pages ?? 1} />
+        {/* Pagination - en todos los tabs excepto en tab favoritos */}
+        {
+          selectedTab !== 'favorites' && (
+            // llama comp., enviando la prop totalPages, obtenidas de la petición http
+            <CustomPagination totalPages={heroesResponse?.pages ?? 1} />
+          )
+        }
       </>
     </>
   )

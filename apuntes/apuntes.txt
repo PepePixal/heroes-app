@@ -443,6 +443,48 @@ En este escenario alternativo, React guarda todo ese array gigantesco en su esta
 🟠 tps://cursos.devtalles.com/courses/take/react-de-cero/lessons/66740800-paginar-por-categoria
 
 🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66741675-pagina-de-heroe
+	https://github.com/Klerith/react-ts-hero-page/blob/main/superhero-profile.tsx
+
+----------------------------------------------------------------
+✅ Sección 15 - Context API - Búsqueda y favoritos
+----------------------------------------------------------------
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66764148-continuacion-de-aplicacion
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66764580-contexto-para-control-de-favoritos
+
+🔷 createContext - React function
+
+En React, su función createContext sirve para crear un contexto, el cual es un mecanismo que permite pasar datos a través del árbol de componentes, de forma global, sin necesidad de pasarlos manualmente (prop drilling) en cada nivel.
+Se crea un context cuando necesitamos usar una misma data en varios componentes en varios niveles de la aplicación.
+
+¿Cómo funciona?
+la función createContext devuelve un objeto con dos componentes principales:
+- Provider: Un componente que provee el valor (los datos) que queremos compartir. Se coloca en la parte superior del árbol de componentes.
+- Consumer (o más comúnmente el hook useContext): Permite a cualquier componente hijo, sin importar cuán profundo esté anidado, consumir o leer ese valor directamente.
+
+🔷 Higher-Order Component - HOC
+
+Un HOC no es un componente en sí, sino un patrón de diseño avanzado en React que consiste en una función que toma un componente y devuelve un nuevo componente mejorado con lógica adicional.
+
+¿Para qué se utilizan?
+Se emplean principalmente para reutilizar lógica transversal (cross-cutting concerns) en múltiples componentes:
+- Autenticación y Autorización: Verificar si un usuario ha iniciado sesión antes de mostrarle una pantalla.
+- Control de acceso a datos (Data Fetching): Obtener datos de una API externa y pasarlos automáticamente como props al componente envuelto.
+- Gestión de estados globales o registros (Logging): Monitorear cuándo se montan o actualizan componentes con fines de depuración.
+
+⚠️ Aunque siguen estando presentes en librerías populares (como connect en Redux clásico) y en bases de código heredadas, su uso ha disminuido considerablemente desde la llegada de los Custom Hooks (Hooks personalizados) en React 16.8.
+Hoy en día, para reutilizar lógica sin modificar la jerarquía de componentes ni generar un anidamiento excesivo de elementos en el DOM (Wrapper Hell), la comunidad prefiere utilizar Hooks.
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66765156-contexto-de-favoritos-parte-2
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66765333-consumir-el-contexto-de-favoritos
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66767304-useref-en-valores-de-inputs
+
+
+
+
+
 
 
 
@@ -672,7 +714,7 @@ El end-point donde solicitar las estadísticas es: localhost:3000/api/heroes/sum
 - En el comp HeroStats.tsx, obtener la data del summary con el hook useQuery() de @tanstak,
 - en el return render, cambiar los datos en crudo por datos dinámicos, obtenidos en la data: summary
  
-Mostrar totales en los Tabs (pestañas o etiquetas)
+Mostrar totales en los Tabs (pestañas o etiquetas):
 El endpoint localhost:3000/api/heroes/summary y el useQuery(), son los mismos que hemos utilizado en get-summary.action.ts para las estadísticas, por tanto podemos reutilizar el useQeury() centralizandolo en un nuevo customHook reutilizable.
 - Crear component custom Hook en src/heroes/hooks/useHeroSummary.tsx,
 - copiar el Tanstack hook useQuery() de HeroStats.tsx y pegarlo en el component useHeroSummary y hacer los imports necesarios,
@@ -682,7 +724,7 @@ El endpoint localhost:3000/api/heroes/summary y el useQuery(), son los mismos qu
 
 ⚠️ Crear un nuevo custom Hook reutilizable "usePaginateHero.tsx" para sustituir el useQuery a heroes, de la HomePage.tsx dejando el código más limpio en esta página.
 
-Paginación por categoría
+Paginación por categoría:
 - En HomePage.tsx, obtener el param category de la url, si no viene, asignar 'all',
 - agregar el param category a los params enviados en UsePaginateHero(),
 - agregar param category y valor correspondiente a los onClick de los <TabsTrigger,
@@ -693,6 +735,42 @@ Paginación por categoría
 - En get-heroes-by-page.action.tsx, agregar el param a recibir, category inicializado a 'all',
 - agregar el param category a la petición http heroApi.get (axios).
 
+Página de héroe:
+Código de recursos - https://github.com/Klerith/react-ts-hero-page/blob/main/superhero-profile.tsx
+- Crear nuevo comp. src/heroes/get-hero.action.tsx, Recibe idSlug, para obtener la data del heroe por su idSlug, del endpoint /api/heroes/${idSlug}.
+- En HeroPage.tsx pegar el código copiado de superhero-profile-tsx de los recursos, renombrar el comp.: export const HomePage,
+- cambiar el comp <Image por una etiqueta <img, ya se debería renderizar el contenido de HeroPage, con la data en crudo de superheroData.
+- Dentro del comp HeroPage, definir la petición http con el hook useQuery de Tanstack que usará como queryFunc: nuestro comp. () => getHeroAction(idSlug). La data se retorna a const { data: superheroData }.
+- Como ahora la data: superheroData la obtenemos con la petición http, podemos borrar la const superheroData que tiene la data en crudo.
+- Definir validaciones.
+- En HeroPage ya se debería renderizar la card del hero con la info del hero obtenida con la petición http, según su idSlug.
+
+Favoritos:
+Como la data de favorites la vamos a usar en varios componentes y en varios niveles de la app, definiremos un context para ella, lo que nos permitirá poder usarla en los componentes de la app sin tener que pasarla manualmente con props.
+
+- Crear nueva carpeta y archivo de contexto: src/heroes/context/FavoriteHeroContext.tsx, 
+- definir interface y crear el contexto global de favoritos con createContext() de React,
+- obterner los favoritos del loclaSotrage si ya los hay y retornarlos, todavia no existen, retornar un arreglo vacio [],
+- definir la función (componente HOC) FavoriteHeroProvider, que recibe un children, definir con los estados y funciones del comp,
+- dentro de la func. definir un useEffect para lamacenar los favorites, cuando cambie el estado del [] favorites.
+- retorna (renderizar) valore, funciones y children
+-> Poner el proveedor de contexto FavoriteHeroProvider, en un nivel alto del arbol de la aplicación, en HeroesApp.tsx,
+- dentro del comp <QueryClientProvider>, envolver los componentes con el HOC proveedor de heroes favoritos <FavoriteHeroProvider>
+
+Consumir el context de favoritos, en la app:
+Para marcar un hero como favorito el usuario debe pulsar sobre el icono del corazoncito de la tarjeta del hero.
+
+-> Editar el archivo donde está la tarjeta con el icono corazón: HeroGridCard.tsx,
+- invocar el contexto FavoriteHeroContext, pero en lugar de hacerlo con el useContext, lo haremos con el api use() de React, recomendado a partir de la vers. 19 de React,
+- en el botón del incono definir el evento onClick que llama a la func del contexto toggleFavorite() enviando el hero.
+
+-> Editar el archivo con la tarjetas de las estadísticas HeroStats.tsx, para poner la cantidad total de Favoritos de forma dinámica,
+- invocar el contexto FavoriteHeroContext con use, desesturct. la prop. favoriteCount y ponerlo como total dinámico de Favoritos,
+- calcular el porcentaje de favoritos según la cant total de Personajes y la cant. de favoritos 
+
+-> Editar el archivo con los tabs HomePage.tsx, para poner el total en la tab Favoritos de forma dinámica.
+- invocar el contexto FavoriteHeroContext con use, desesturct. las props. favoriteCount y favorites, favoriteCout como total dinámico de Favoritos() y la grid de heroes favoritos al content de la tab 'Favoritos' 
+ 
 
 
 

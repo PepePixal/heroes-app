@@ -31,13 +31,12 @@ export const HeroPage = () => {
     retry: false,
   });
 
-
   //valida, si la prop isError, proporcionada por useQuery() de Tanstack, es true
   if (isError) {
     return <Navigate to="/" />
   }
 
-  //valida, si no hay data para y muestra mensaje
+  //valida, si no hay data, para y muestra mensaje
   if (!superheroData) {
     return <h3>Loading...</h3>
   };

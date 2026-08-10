@@ -1,9 +1,11 @@
 // Componente Estadísticas
 
+import { use, useMemo } from "react";
 import { Heart, Users, Zap } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { HeroStatCard } from './HeroStatCard';
 import { useHeroSummary } from "../hooks/useHeroSummary";
+import { FavoriteHeroContext } from "../context/FavoriteHeroContext";
 
 
 export const HeroStats = () => {
@@ -11,6 +13,16 @@ export const HeroStats = () => {
     //llama nuestro custom Hook que obtiene la data de /summary (Resumen de Estadísticas),
     //destructura la prop "data" de lo retornado y la renombra como summary para facilitar su uso
     const { data: summary } = useHeroSummary();
+
+    // invocar el contexto de favorites, con la api use() (a partir de React 19),
+    // desestruc la prop favoriteCount del contexto FavoriteHeroContext
+    const { favoriteCount } = use(FavoriteHeroContext);
+
+    // validar para que summary nunca sea undefined
+    if ( !summary ) {
+        return <div>Loading...</div>
+    }
+
 
     return (
         /* Stats Dashboard - Estadísticas */
@@ -42,8 +54,11 @@ export const HeroStats = () => {
                 icon={<Heart className="h-4 w-4 text-muted-foreground" />} 
             >
                 {/* enviando children al comp HeroStatCard */}
-                <div className="text-2xl font-bold text-red-600">3</div>
-                <p className="text-xs text-muted-foreground">18.8% of total</p>
+                <div className="text-2xl font-bold text-red-600">{favoriteCount}</div>
+                <p className="text-xs text-muted-foreground">
+                    {/* calcula el porcentaje de favoritos respecto al total de heroes, tomando (2) decimales */}
+                    {((favoriteCount / summary?.totalHeroes)*100).toFixed(2)}% of total
+                </p>
             </HeroStatCard>
 
             <HeroStatCard 

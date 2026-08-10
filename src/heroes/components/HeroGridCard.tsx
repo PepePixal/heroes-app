@@ -1,11 +1,13 @@
 
 import { useNavigate } from "react-router"
+import { use } from "react"
 import { Heart, Eye, Zap, Brain, Gauge, Shield } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardContent } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import type { Hero } from "../types/hero.interface"
+import { FavoriteHeroContext } from "../context/FavoriteHeroContext"
 
 interface Props {
     hero: Hero
@@ -13,11 +15,14 @@ interface Props {
 
 export const HeroGridCard = ( {hero}: Props ) => {
 
-
     //hook de react-router retorna a navigate una funcion que
     //ejecutaremos posteriormente para cambiar de ruta,
     //esta función acepta los parámetros to y options.
     const navigate = useNavigate();
+
+    //invocar el contexto de favorites, con la api use() (a partir de React 19),
+    // tendremos accesoa a los states y funciones comparte el contexto FavoriteHeroContext (Crtl +  esp.)
+    const { isFavorite, toggleFavorite } = use(FavoriteHeroContext);
 
     //manejador del click sobre las tarjetas, con navegación dinámica
     const handleClick = () => {
@@ -56,15 +61,26 @@ export const HeroGridCard = ( {hero}: Props ) => {
                 }
 
                 {/* Favorite button */}
-                <Button size="sm" variant="ghost" className="absolute bottom-3 right-3 bg-white/90 hover:bg-white">
-                    <Heart className="h-4 w-4 fill-red-500 text-red-500" />
+                <Button 
+                    size="sm"
+                    variant="ghost"
+                    className="absolute bottom-3 right-3 bg-white/90 hover:bg-white"
+                    onClick={() => toggleFavorite(hero)}
+                >
+                    <Heart 
+                        className={`h-4 w-4 ${
+                            // llam func isFavorite() enviando el hero, retorna true o false,
+                            // si el hero esta en favoritos ? corazón rojo, si no : corazón gris
+                            isFavorite(hero) ? 'fill-red-500 text-red-500' : 'text-gray-500'
+                        }`}
+                    />
                 </Button>
 
                 {/* View details button */}
                 <Button
-                size="sm"
-                variant="ghost"
-                className="absolute bottom-3 left-3 bg-white/90 hover:bg-white opacity-0 group-hover:opacity-100 transition-opacity"
+                    size="sm"
+                    variant="ghost"
+                    className="absolute bottom-3 left-3 bg-white/90 hover:bg-white opacity-0 group-hover:opacity-100 transition-opacity"
                 >
                     <Eye className="h-4 w-4 text-gray-600" />
                 </Button>
