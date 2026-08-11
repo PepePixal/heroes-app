@@ -9,11 +9,10 @@ export const SearchPage = () => {
   return (
 
     <>
-      
       {/*Header - llama al comp, enviando props*/}
       <CustomJumbotron
-        title="TEST Búsqueda Superhéroes"
-        description="Descubre y administra SuperHéroes y Villanos"
+        title="Búsqueda Superhéroes"
+        description="Descubre y administra Superhéroes y Villanos"
       />
 
       {/* Breadcrumbs - migas de pan */}
@@ -24,9 +23,7 @@ export const SearchPage = () => {
 
       {/* Search and actions */}
       <SearchControls />
-
     </>
 
-
-  )
-}
+  );
+};

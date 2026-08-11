@@ -24,12 +24,10 @@ export const HomePage = () => {
 
   // obtiene el valor del parám. 'tab' de la url, si no viene nada, asigna 'all', a activeTab
   const activeTab = searchParams.get('tab') ?? 'all';
-
   // obtiene el valor del param. 'page' de la url, si no viene nada, asigna '1' (string)
   const page = searchParams.get('page') ?? '1';
   // obtiene valor del param. 'limit' de la url, si no viene, le asigna '6' por defecto. 
   const limit = searchParams.get('limit') ?? '6';
-  
   // obtiene valor del param. 'category' de la url, si no viene, le asigna 'all' por defecto. 
   const category = searchParams.get('category') ?? 'all'
   

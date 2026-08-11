@@ -480,12 +480,40 @@ Hoy en día, para reutilizar lógica sin modificar la jerarquía de componentes 
 🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66765333-consumir-el-contexto-de-favoritos
 
 🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66767304-useref-en-valores-de-inputs
+Buscar Superhéroes
 
+🔷 useRef - React hook
 
+Es un Hook que te permite crear una referencia mutable que persiste durante todo el ciclo de vida del componente.
+Retorna un objeto plano de JavaScript que tiene una única propiedad llamada current.
 
+A diferencia del estado (useState), actualizar un useRef no provoca un re-renderizado del componente.
 
+¿Para qué sirve principalmente?
+- 1. Acceder y manipular elementos del DOM directamente
+Es el equivalente en React a métodos tradicionales como document.getElementById. Te permite interactuar de forma directa con un nodo HTML renderizado.
+	Casos de uso comunes:
+	- Hacer focus en un input de texto automáticamente.
+	- Hacer scroll hasta una posición específica de la página o un contenedor.
+	- Reproducir o pausar elementos de video/audio (<video>, <audio>).
+	- Medir el ancho o alto de un elemento en pantalla.
 
+- 2. Almacenar valores mutables sin provocar re-renderizados
+Puedes guardar cualquier valor (un número, un objeto, un identificador de temporizador) que necesites recordar entre renderizados, pero cuyos cambios no deban reflejarse visualmente en la interfaz de usuario.
+	Casos de uso comunes:
+	- Guardar el identificador (id) de un setInterval o setTimeout para poder limpiarlo después.
+	- Llevar la cuenta de cuántas veces se ha renderizado un componente.
+	- Guardar valores anteriores de un estado para compararlos.
 
+Acceso: mediante la propiedad .current
+
+	// 1. Creamos la referencia
+  	const inputRef = useRef(null);
+	
+	const manejarClick = () => {
+		// 3. Accedemos al elemento DOM mediante la propiedad .current y usamos su método .focus()
+		inputRef.current.focus();
+	};
 
 
 /------/
@@ -771,6 +799,18 @@ Para marcar un hero como favorito el usuario debe pulsar sobre el icono del cora
 -> Editar el archivo con los tabs HomePage.tsx, para poner el total en la tab Favoritos de forma dinámica.
 - invocar el contexto FavoriteHeroContext con use, desesturct. las props. favoriteCount y favorites, favoriteCout como total dinámico de Favoritos() y la grid de heroes favoritos al content de la tab 'Favoritos' 
  
+Buscar Superhéroes:
+
+-> Input: Editar el archivo src/heroes/pages/search/ui/SearchControls.tsx,
+- definir un React hook useRef(), para almacenar la info del input sin que rerenderice cuando cambie su valor.
+- Definir la función "handleKeyDown", manejadora del onKeyDown, que comprueba si lo pulsado en el input es 'Enter' y agrega parámetro a la url activa, con el setSearchParams del useSearchParams de react-router. Usar el prev para mantener el resto de params de la url activa.
+- definir la prop onKeyDown en el <Input.., que llamará a la func. "handleKeyDown",
+- definir la prop defaultValue en el <Input..., que mantendrá lo pulsado en el input, tras pulsar Enter.
+
+
+
+
+
 
 
 

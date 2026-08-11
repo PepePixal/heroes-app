@@ -1,8 +1,41 @@
+
+import { useRef } from "react";
+import { useSearchParams } from "react-router";
+
 import { Filter, Grid, Plus, Search, SortAsc } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 
 export const SearchControls = () => {
+
+  // def. hook de react-router para manejar los URL query parameters. Similar al hook useState(),
+  // retorna los params actuales de la url y la func. para establecer query parameters en la URL actual 
+  const [ searchParams, setSearchParams ] = useSearchParams();
+
+  // Reacat hook useRef, para almacenar la info del input sin renderizar.
+  // Retorna un objeto plano de JS con una única prop. llamada current.
+  const inputRef = useRef<HTMLInputElement>(null); 
+
+  // Func. manejadora del Enter en el input
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    // si la tecla pulsada es Enter, actualizar la url
+    if (event.key === 'Enter') {
+      //obtiene el valor del input en inputRef (de useRef)
+      // si no viene nada ?? asigna '', para evitar que sea undefined
+      const value = inputRef.current?.value ?? '';
+
+      // modifica el valor de searchParams (url activa),
+      // insertando los el parámetro ?name=valor_de_value, en la url activa,
+      // conservando los posibles parámetros prviso (prev), posteriores al símbolo & 
+      setSearchParams( ( prev ) => {
+        //agrega al contenido de prev, el param '?name=' con el valor_de_value
+        prev.set('name', value);
+        // retorna todo el contenido de prev a searchParams (url activa)
+        return prev;
+      });
+
+    }
+  }
 
   return (
  
@@ -12,7 +45,17 @@ export const SearchControls = () => {
             {/* Search */}
             <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 h-5 w-5" />
-                <Input placeholder="Buscar héroes, villanos, poderes, teams..." className="bg-white pl-12 h-12 text-lg placeholder:text-gray-400" />
+                <Input
+                  // Toma el elemento HTML del <Input/> y lo guarda dentro de la prop. .current de la constante inputRef
+                  ref={inputRef} 
+                  placeholder="Buscar héroes, villanos, poderes, teams..."
+                  className="bg-white pl-12 h-12 text-lg placeholder:text-gray-400"
+                  // cuando se pulse una tecla, llamar la func. handleKeyDown que recibe el event
+                  onKeyDown={handleKeyDown}
+                  // valor por defecto modificable, obtenido del param name de la url activa, si no viene, asigna ''
+                  // con esto no desaparece lo tecleado en el input, cuando se pulsa en Enter
+                  defaultValue={ searchParams.get('name') ?? ''}
+                />
             </div>
 
             {/* Action buttons */}
@@ -81,5 +124,6 @@ export const SearchControls = () => {
           </div>
         </div>
     </>
-  )
-}
+
+  );
+};
