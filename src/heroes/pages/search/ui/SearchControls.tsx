@@ -5,6 +5,8 @@ import { useSearchParams } from "react-router";
 import { Filter, Grid, Plus, Search, SortAsc } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { Slider } from "@/components/ui/slider";
+import { Accordion, AccordionContent, AccordionItem } from "@/components/ui/accordion"
 
 export const SearchControls = () => {
 
@@ -82,47 +84,51 @@ export const SearchControls = () => {
         </div>
 
         {/* Advanced Filters */}
-        <div className="bg-white rounded-lg p-6 mb-8 shadow-sm border">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-semibold">Filtros Avanzados</h3>
-            <Button variant="ghost">Borrar Todo</Button>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Equipo</label>
-              <div className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
-                Todos los equipos
-              </div>
-            </div>
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Categoría</label>
-              <div className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
-                Todas las categorías
-              </div>
-            </div>
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Universo</label>
-              <div className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
-                Todos los universos
-              </div>
-            </div>
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Estatus</label>
-              <div className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
-                Todos los estatus
-              </div>
-            </div>
-          </div>
-          <div className="mt-4">
-            <label className="text-sm font-medium">Fuerza máxima: 0/10</label>
-            <div className="relative flex w-full touch-none select-none items-center mt-2">
-              <div className="relative h-2 w-full grow overflow-hidden rounded-full bg-secondary">
-                <div className="absolute h-full bg-primary" style={{ width: "0%" }} />
-              </div>
-              <div className="block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors" />
-            </div>
-          </div>
-        </div>
+        <Accordion type="single" collapsible value="item-1">
+          <AccordionItem value="item-1">
+            {/* <AccordionTrigger className="text-lg font-semibold">Filtros avanzados</AccordionTrigger> */}
+              <AccordionContent>
+                <div className="bg-white rounded-lg p-6 mb-8 shadow-sm border">
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-lg font-semibold">Filtros Avanzados</h3>
+                    <Button variant="ghost">Borrar Todo</Button>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium">Equipo</label>
+                      <div className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
+                        Todos los equipos
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium">Categoría</label>
+                      <div className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
+                        Todas las categorías
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium">Universo</label>
+                      <div className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
+                        Todos los universos
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium">Estatus</label>
+                      <div className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
+                        Todos los estatus
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-4">
+                    <label className="text-sm font-medium">Fuerza máxima: 0/10</label>
+                    {/* slider de shadcn.com */}
+                    <Slider defaultValue={[5]} max={10} step={1} />
+                  </div>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+        </Accordion>
+
     </>
 
   );

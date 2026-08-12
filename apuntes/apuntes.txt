@@ -521,6 +521,11 @@ Acceso: mediante la propiedad .current
 
 🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66768767-componentes-de-busqueda-adicionales
 
+https://ui.shadcn.com/docs/components/base/accordion
+https://ui.shadcn.com/docs/components/base/slider
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66769050-filtros-avanzados
+
 
 /--------------------------------------/
 
@@ -821,6 +826,42 @@ Buscar Superhéroes:
 -> Desde el comp src/heroes/pages/search/SearchPage.tsx, obtener los params de la url en searchParams con el useSearchParams(),
 - obtener solo el valor del param name con searchParam.get().
 - obtener la data con el Tanstack hook useQuery(). Renderizar la data obtenida enviándola al comp. <HeroGrind />
+
+* Filtros de búsqueda:
+- Instalar los componentes accordion y de la biblioteca shadcn (https://ui.shadcn.com/docs/components/base)
+-> VSC: abrir terminal en el proyecto y ejecutar: npx shadcn@latest add
+- seleccionar los componentes accordion y slider, pulsar Enter,
+- los nuevos componentes deberían aparecer en src/components/ui/accordion.tsx y slider.tsx
+-> * slider:
+- Siguiendo las instrucciones de uso en https://ui.shadcn.com/docs/components/base/slider, copiar el código de Usage:
+	import { Slider } from "@/components/ui/slider";
+	<Slider defaultValue={[33]} max={100} step={1} />
+-> VSC: Editar el archivo src/heroes/pages/search/ui/SearchControls.tsx, donde estan los filtros,
+- comentar el código del renderizado del slider original, dejando <label>Fuerza máxima... y pegar el código del slider copiado de shadcn. Debería renderizarse el nuevo slider, poner 10 como valor máximo.
+-> * accordion:
+- Siguiendo las instrucciones de uso en https://ui.shadcn.com/docs/components/base/accordion, copiar el código de Usage:
+	import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/accordion";
+	<Accordion defaultValue={["item-1"]}>
+	  <AccordionItem value="item-1">
+	    <AccordionTrigger>Is it accessible?</AccordionTrigger>
+	    <AccordionContent>
+	      Yes. It adheres to the WAI-ARIA design pattern.
+	    </AccordionContent>
+	  </AccordionItem>
+	</Accordion>
+-> VSC: Editar el archivo src/heroes/pages/search/ui/SearchControls.tsx, pegar las importaciones,
+- cortar todo el código original después del título {/* Advanced Filters */},
+- justo debajo del título {/* Advanced Filters */}, pegar todo el código del <Accordion..> </Accordion>
+  (si <Accordion... > da error, sustituirlo por: <Accordion type="single" collapsible>
+- dentro del código <AccordionContent> pegar el código original cortado </AccordionContet>,
+- cambia el texto <AccordionTrigger> por: Filtros avanzados
+- en el renderizado debería aparecer el título del accordion y al pulsarlo se debería desplegar los filtros.
+- Como queremos que el accordion se muestre y oculte cuando pulsemos el botón "Filtros", preparamos el código, comentando la línea de <AccordionTrigger></AccordionTringger> y agregando la prop value="item-1", para que el accordion quede desplegado.
+-> El código para que el botón "Filtros" actúe sobre el accordion, lo implementaremos con la pieza de estado query parameters en lugar de con states, por si algún usuario quiere compartir la url con los filtros de búsqueda seleccionados. 
+
+
+
+
 
 
 
