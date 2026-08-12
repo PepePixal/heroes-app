@@ -254,15 +254,15 @@ Es el hook principal y más utilizado de TanStack Query en React. Su propósito 
 ¿Qué hace exactamente?
 
 Cuando llamas a useQuery dentro de un componente, este hook realiza las siguientes tareas de manera automática:
-- Ejecuta la función de petición: Llama a la función que le pasas (la queryFn) para traer los datos del servidor.
+- Ejecuta la función de petición: Llama a la función que le pasas en queryFn:, para traer los datos del servidor.
 - Administra los estados de carga y error: Te devuelve variables reactivas como isLoading, isError, data y error para que sepas en todo momento qué está pasando sin que tengas que crear estados manuales con useState.
-- Almacena el resultado en caché: Guarda los datos obtenidos utilizando una clave única (queryKey). Si otro componente pide la misma información, se la entrega de inmediato sin volver a llamar a la API.
+- Almacena el resultado en caché: Guarda los datos obtenidos utilizando una clave única queryKey:. Si otro componente pide la misma información, se la entrega de inmediato sin volver a llamar a la API.
 - Mantiene los datos sincronizados: Vuelve a buscar los datos en segundo plano bajo ciertas condiciones (como cuando el usuario cambia de pestaña y regresa) para asegurar que la información no esté desactualizada.
 
 ¿Cómo se estructura?
 
 useQuery recibe un objeto de configuración que requiere obligatoriamente dos propiedades principales:
-- queryKey: Un array único que identifica la consulta. TanStack Query usa esta clave para gestionar la caché, invalidar datos y saber qué peticiones están asociadas entre sí (ej. ['usuarios'] o ['usuario', id]).
+- queryKey: Un array único que identifica la consulta con un primer elemento tipo string y un segundo elemento con los parámetros de los que dependen la consulta, pueden ir en un objeto {}, cuando alguno de estos parámetros cambia su valor, se vuelve a realizar la consulta. TanStack Query usa la clave única para gestionar la caché, invalidar datos y saber qué peticiones están asociadas entre sí (ej. ['usuarios'] o ['usuario',  {id}]).
 - queryFn: Una función que devuelve una promesa (por lo general usando fetch o Axios) encargada de ir a buscar los datos al servidor.
 - staleTime: (tiempo de obsolescencia) Define durante cuánto tiempo (ms) los datos obtenidos se consideran "frescos" (fresh) y se mantienen en caché, en la dirección marcada por la queryKey. Esto permite no tener que hacer la misma petición http durante el tiempo establecido. 
 Por defecto, TanStack Query considera que los datos se vuelven obsoletos (stale) inmediatamente (staleTime: 0) en cuanto se descargan.
@@ -325,7 +325,7 @@ Puedes pasar información oculta a la siguiente ruta a través de la propiedad s
 
 🔷 useParams() - react-router hook
 
-useParams() es un Hook de raact-router que permite acceder a los parámetros dinámicos de la URL actual.
+useParams() es un Hook de react-router que permite acceder a los parámetros dinámicos de la URL actual.
 
 ¿Qué es?
 Es una función proporcionada por React Router que conecta tus componentes con la estructura de la ruta actual sin necesidad de pasar props de forma manual desde el componente principal.
@@ -514,9 +514,15 @@ Acceso: mediante la propiedad .current
 		// 3. Accedemos al elemento DOM mediante la propiedad .current y usamos su método .focus()
 		inputRef.current.focus();
 	};
+---
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66767654-buscar-heroes-por-nombre
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66767832-solucion-de-tarea-buscar-heroes
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66768767-componentes-de-busqueda-adicionales
 
 
-/------/
+/--------------------------------------/
 
 
 
@@ -801,11 +807,22 @@ Para marcar un hero como favorito el usuario debe pulsar sobre el icono del cora
  
 Buscar Superhéroes:
 
--> Input: Editar el archivo src/heroes/pages/search/ui/SearchControls.tsx,
+* Input:
+->Editar el archivo src/heroes/pages/search/ui/SearchControls.tsx,
 - definir un React hook useRef(), para almacenar la info del input sin que rerenderice cuando cambie su valor.
 - Definir la función "handleKeyDown", manejadora del onKeyDown, que comprueba si lo pulsado en el input es 'Enter' y agrega parámetro a la url activa, con el setSearchParams del useSearchParams de react-router. Usar el prev para mantener el resto de params de la url activa.
 - definir la prop onKeyDown en el <Input.., que llamará a la func. "handleKeyDown",
 - definir la prop defaultValue en el <Input..., que mantendrá lo pulsado en el input, tras pulsar Enter.
+
+* Buscar héroes por nombre (param ?name= de la URL activa):
+-> Postman: Probar la petición GET a la api, para obtener héroes con params ?name= & strength=, url : localhost:3000/api/heroes/search 
+-> Los parámetros por los que se puede hacer la búsqueda están definidos en el backend en: src/heroes/dto/advande-search.dto.ts
+-> Crear nueva acción en src/heroes/actions/search-heros.action.ts, para obtener los heroes buscados según las options recibidas,
+-> Desde el comp src/heroes/pages/search/SearchPage.tsx, obtener los params de la url en searchParams con el useSearchParams(),
+- obtener solo el valor del param name con searchParam.get().
+- obtener la data con el Tanstack hook useQuery(). Renderizar la data obtenida enviándola al comp. <HeroGrind />
+
+
 
 
 
