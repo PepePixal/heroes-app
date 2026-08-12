@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider";
 import { Accordion, AccordionContent, AccordionItem } from "@/components/ui/accordion"
 
+// component
 export const SearchControls = () => {
 
   // def. hook de react-router para manejar los URL query parameters. Similar al hook useState(),
@@ -17,6 +18,19 @@ export const SearchControls = () => {
   // Reacat hook useRef, para almacenar la info del input sin renderizar.
   // Retorna un objeto plano de JS con una única prop. llamada current.
   const inputRef = useRef<HTMLInputElement>(null); 
+
+  // obtener el valor del param 'strength' de la url y asignarlo a la const selectedStringth,
+  // si viene vacio asignar string '0'
+  const selectedStrength = Number(searchParams.get('strength') ?? '0');
+
+  // func helper que recibe name de param y value,
+  // los agrega a los params previos existentes (prev) y los inserta en la url activa
+    const setQueryParams = (name: string, value: string) => {
+      setSearchParams((prev) => {
+        prev.set(name, value);
+        return prev;
+      });
+  }
 
   // Func. manejadora del Enter en el input
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -39,9 +53,9 @@ export const SearchControls = () => {
     }
   }
 
+  // renderizado
   return (
- 
-    <>
+     <>
         {/* Controls */}
         <div className="flex flex-col lg:flex-row gap-4 mb-8">
             {/* Search */}
@@ -62,17 +76,17 @@ export const SearchControls = () => {
 
             {/* Action buttons */}
             <div className="flex gap-2">
-                <Button variant="outline" className="h-12 bg-transparent">
+                <Button variant="outline" className="h-12">
                     <Filter className="h-4 w-4 mr-2" />
                     Filtros
                 </Button>
 
-                <Button variant="outline" className="h-12 bg-transparent">
+                <Button variant="outline" className="h-12">
                     <SortAsc className="h-4 w-4 mr-2" />
                     Orden por nombre
                 </Button>
 
-                <Button variant="outline" className="h-12 bg-transparent">
+                <Button variant="outline" className="h-12">
                     <Grid className="h-4 w-4" />
                 </Button>
 
@@ -84,8 +98,8 @@ export const SearchControls = () => {
         </div>
 
         {/* Advanced Filters */}
-        <Accordion type="single" collapsible value="item-1">
-          <AccordionItem value="item-1">
+        <Accordion type="single" collapsible value="advanced-filters">
+          <AccordionItem value="advanced-filters">
             {/* <AccordionTrigger className="text-lg font-semibold">Filtros avanzados</AccordionTrigger> */}
               <AccordionContent>
                 <div className="bg-white rounded-lg p-6 mb-8 shadow-sm border">
@@ -120,9 +134,18 @@ export const SearchControls = () => {
                     </div>
                   </div>
                   <div className="mt-4">
-                    <label className="text-sm font-medium">Fuerza máxima: 0/10</label>
+                    <label className="text-sm font-medium">Fuerza máxima: {selectedStrength}/10</label>
+                    <div className="h-10 w-full rounded-md border border-input bg-background px-3 py-4 text-sm">
                     {/* slider de shadcn.com */}
-                    <Slider defaultValue={[5]} max={10} step={1} />
+                    <Slider
+                      defaultValue={[selectedStrength]} 
+                      max={10}
+                      step={1}
+                      // cuando cambia el value del Slider, lo asigna al param 'strength',
+                      // como value es tipo number[], toma el primer elemento del arreglo y lo pasa string
+                      onValueChange={value => setQueryParams('strength', value[0].toString())}
+                    />
+                    </div>
                   </div>
                 </div>
               </AccordionContent>
@@ -130,6 +153,5 @@ export const SearchControls = () => {
         </Accordion>
 
     </>
-
   );
 };
