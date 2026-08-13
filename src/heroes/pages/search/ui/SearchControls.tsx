@@ -23,9 +23,13 @@ export const SearchControls = () => {
   // si viene vacio asignar string '0'
   const selectedStrength = Number(searchParams.get('strength') ?? '0');
 
+  // obtener el valor del param 'active-acordion' de la url y asignarlo a la const activeAccordion,
+  // si viene vacio asignar string '0'
+  const activeAccordion = searchParams.get('active-accordion') ?? '';
+
   // func helper que recibe name de param y value,
   // los agrega a los params previos existentes (prev) y los inserta en la url activa
-    const setQueryParams = (name: string, value: string) => {
+  const setQueryParams = (name: string, value: string) => {
       setSearchParams((prev) => {
         prev.set(name, value);
         return prev;
@@ -76,9 +80,24 @@ export const SearchControls = () => {
 
             {/* Action buttons */}
             <div className="flex gap-2">
-                <Button variant="outline" className="h-12">
-                    <Filter className="h-4 w-4 mr-2" />
-                    Filtros
+                <Button
+                  // la variante del button cambia dinámicamente, según se muestran o no los filtros
+                  variant={activeAccordion === 'advance-filters' ? 'default' : "outline"}
+                  className="h-12"
+                  onClick={() => {
+                    // si se cumple la condición, los filtros ya se estan mostrando, por tanto:
+                    if ( activeAccordion === 'advance-filters') {
+                      // asignar '', al param, para que no se muestren los filtros
+                      setQueryParams('active-accordion', '')
+                      return;
+                    } 
+                    // si no se ha cumplido la condición, los filtros no se estan mostrando,
+                    // asignarle 'advance-filters' al param, para que se muestren los filtros
+                    setQueryParams('active-accordion', 'advance-filters');
+                  }}
+                >
+                  <Filter className="h-4 w-4 mr-2" />
+                  Filtros
                 </Button>
 
                 <Button variant="outline" className="h-12">
@@ -98,8 +117,8 @@ export const SearchControls = () => {
         </div>
 
         {/* Advanced Filters */}
-        <Accordion type="single" collapsible value="advanced-filters">
-          <AccordionItem value="advanced-filters">
+        <Accordion type="single" collapsible value={activeAccordion}>
+          <AccordionItem value="advance-filters">
             {/* <AccordionTrigger className="text-lg font-semibold">Filtros avanzados</AccordionTrigger> */}
               <AccordionContent>
                 <div className="bg-white rounded-lg p-6 mb-8 shadow-sm border">

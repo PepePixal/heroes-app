@@ -837,11 +837,13 @@ Buscar Superhéroes:
 - Siguiendo las instrucciones de uso en https://ui.shadcn.com/docs/components/base/slider, copiar el código de Usage:
 	import { Slider } from "@/components/ui/slider";
 	<Slider defaultValue={[33]} max={100} step={1} />
--> VSC: Editar el archivo src/heroes/pages/search/ui/SearchControls.tsx, donde estan los filtros,
-- comentar el código del renderizado del slider original, dejando <label>Fuerza máxima... y pegar el código del slider copiado de shadcn. Debería renderizarse el nuevo slider, poner 10 como valor máximo.
+-> VSC: Editar el archivo src/heroes/pages/search/ui/SearchControls.tsx, donde están los filtros,
+- comentar o borrar el código del renderizado del slider original, dejando <label>Fuerza máxima...</label> y pegar el código del slider copiado de shadcn. Poner 5 como defaultValue, 10 valor max y 1 en step.
+- Debería renderizarse el nuevo slider.
 El código para que el slider funcione, lo implementaremos con la pieza de estado query parameters en lugar de con states, por si algún usuario quiere compartir la url con los filtros de búsqueda seleccionados. 
-- en el componente, asignar a la const selectedStrength, el valor, convertido a number, del param 'strength' de searchParams (que contiene todos los params de la url activa), si no viene nada, asignar ?? '0',
-- en el render, en el <Slider, asignar a la prop defaultValue={[selectedStrength]} y agregar la prop onValueChange, para modificar, con el setQueryParams, el valor del parámetro 'strength' en la url activa, cuando se mueva el slider
+- En el componente, asignar a la const selectedStrength, el valor, convertido a number, del param 'strength' de searchParams (que contiene todos los params de la url activa), si no viene nada, asignar ?? '0',
+- crear una función (setQueryParams) que recibirá el name del param y el value, y los agregará a la url activa, agregándolos a los params previos (prev) para conservarlos, con setSearchParams(prev),
+- en el render, en el <Slider, asignar a la prop defaultValue={[selectedStrength]} y agregar la prop onValueChange, para modificar,  el valor del parámetro 'strength' en la url activa, con la func setqueryParams, cuando se mueva el slider.
 - en el <label> del <Slider>, poner la const {selectedStreng} para que renderice su valor.
 
 -> * accordion:
@@ -856,21 +858,20 @@ El código para que el slider funcione, lo implementaremos con la pieza de estad
 	  </AccordionItem>
 	</Accordion>
 -> VSC: Editar el archivo src/heroes/pages/search/ui/SearchControls.tsx, pegar las importaciones,
-- cortar todo el código original después del título {/* Advanced Filters */},
-- justo debajo del título {/* Advanced Filters */}, pegar todo el código del <Accordion..> </Accordion>
+- justo debajo del título {/* Advanced Filters */}, pegar todo el código del <Accordion..> </Accordion>, copiado,
   (si <Accordion... > da error, sustituirlo por: <Accordion type="single" collapsible>
-- dentro del código <AccordionContent> pegar el código original cortado </AccordionContet>,
+- cortar todo el código original de Advanced Filters que se ha desplazado después de </Accordion> y pegarlo entre las etiquetas <AccordionContent>...</AccordionContet>,
 - cambia el texto <AccordionTrigger> por: Filtros avanzados
 - en el renderizado debería aparecer el título del accordion y al pulsarlo se debería desplegar los filtros.
 - Como queremos que el accordion se muestre y oculte cuando pulsemos el botón "Filtros", preparamos el código:
-  - comentando la línea de <AccordionTrigger></AccordionTringger> que no necesitaremos y 
+  - comentando o eliminando la línea de <AccordionTrigger></AccordionTringger> que no necesitaremos y 
   - agregando la prop value="advance-filters", tanto en <Accordion..> como en <AccordionItem...>, para que el Item "advance-filters" del accordion quede desplegado por defecto.
 El código para que el botón "Filtros" actúe sobre el accordion, lo implementaremos con la pieza de estado query parameters en lugar de con states, por si algún usuario quiere compartir la url con los filtros de búsqueda seleccionados. 
-- VSC: editar el archivo src/heroes/pages/search/ui/SearchControls.tsx,
-- en el componente, asignar a la const activeAccordion, el valor del param 'active-accordion' de searchParams (que contiene todos los params de la url activa), si no viene nada, asignar ?? '',
-- crear una función (setQueryParams) que recibirá el name del param y el value, y los agregará a la url activa, agregándolos a los params previos (prev) para conservarlos, con setSearchParams(prev),
-- en el <Button Filtros, agregar prop onClick={} con una función de callback, donde se hace una validación y se asigna un valor u otro a active-accordion, con setQueryParams
--> en el <Accordion.. asignar a la prop value el valor dinámico que contenga en cada momento la const activeAccordion ( value={activeAccordion})
+- VSC: continuando en el archivo src/heroes/pages/search/ui/SearchControls.tsx,
+- en el componente 'SearchControls', asignar a la const activeAccordion, el valor del param 'active-accordion' de searchParams (que contiene todos los params de la url activa), si no viene nada, asignar ?? '',
+- en el <Button Filtros, agregar prop onClick={} con una función de callback, donde se hace una validación y se asigna un valor u otro a param active-accordion (modificándose el valor de la const activeAccordion), con setQueryParams()
+-> en el <Accordion.. asignar a la prop value, el valor dinámico que contenga en cada momento la const activeAccordion ( value={activeAccordion})
+- en el <Button Filtros, cambiar el tipo de variante de botón dinámicamente, condicionando la prop variant= 
 
 
 
