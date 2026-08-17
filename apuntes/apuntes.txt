@@ -538,6 +538,23 @@ https://ui.shadcn.com/docs/components/base/slider
 - Pruebas con TanStack
 - Pruebas sobre custom hooks
 
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66912850-continuacion-de-la-aplicacion-y-configuraciones
+
+Instalación y configuraciones para realizar los test con vitest:
+https://gist.github.com/Klerith/3a3d8df27c19755c829ee5c0cef55a55
+- Una vez instalado, crear archivo main.test.tsx con código para probar si funciona el testing con vitest y ejecutar: npm run test
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66913597-variables-de-entorno-para-testing-env-test
+- VSC: crear una copia del archivo .env, renómbralo a .env.test y cambiar el puerto a :3001. Ahora los test se ejecutaran automáticamente en el puerto :3001
+- VSC: nuevo archivo test: src/heroes/api/hero.api.test.ts
+- Levantar nuevo servidor de datos (backend) en el puerto 3001 con: $env:PORT=3001 npm run start:dev
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66914469-test-getheroaction
+TEST getHeroAction
+
+
+
+
 
 
 
