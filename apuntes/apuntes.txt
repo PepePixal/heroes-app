@@ -550,8 +550,16 @@ https://gist.github.com/Klerith/3a3d8df27c19755c829ee5c0cef55a55
 - Levantar nuevo servidor de datos (backend) en el puerto 3001 con: $env:PORT=3001 npm run start:dev
 
 🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66914469-test-getheroaction
-TEST getHeroAction
+- VSC: crear test src/heroes/actions/get-hero.action.test.ts
 
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66916810-test-getsummaryaction
+- VSC: crear test src/heroes/actions/get-summary.action.test.ts
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66919824-test-getheroesbypageaction
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66920427-parte-2-test-getheroesbypageaction
+- VSC: crear test src/heroes/actions/get-heroes-by-page-action.test.ts
+https://www.npmjs.com/package/axios-mock-adapter
+- Instalar en le proyecto la opción para desarrollo: npm install axios-mock-adapter --save-dev
 
 
 
