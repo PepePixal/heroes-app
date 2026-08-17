@@ -526,6 +526,20 @@ https://ui.shadcn.com/docs/components/base/slider
 
 🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/66769050-filtros-avanzados
 
+----------------------------------------------------------------
+✅ Sección 16 - Testing Héroes App
+----------------------------------------------------------------
+
+- Pruebas sobre ContextAPI
+- Pruebas sobre router
+- Pruebas con query params
+- Pruebas de redirecciones y componentes
+- Mocks y espías
+- Pruebas con TanStack
+- Pruebas sobre custom hooks
+
+
+
 
 /--------------------------------------/
 
@@ -871,7 +885,10 @@ El código para que el botón "Filtros" actúe sobre el accordion, lo implementa
 - en el componente 'SearchControls', asignar a la const activeAccordion, el valor del param 'active-accordion' de searchParams (que contiene todos los params de la url activa), si no viene nada, asignar ?? '',
 - en el <Button Filtros, agregar prop onClick={} con una función de callback, donde se hace una validación y se asigna un valor u otro a param active-accordion (modificándose el valor de la const activeAccordion), con setQueryParams()
 -> en el <Accordion.. asignar a la prop value, el valor dinámico que contenga en cada momento la const activeAccordion ( value={activeAccordion})
-- en el <Button Filtros, cambiar el tipo de variante de botón dinámicamente, condicionando la prop variant= 
+- en el <Button Filtros, cambiar el tipo de variante de botón dinámicamente, condicionando la prop variant= .
+
+
+ 
 
 
 

@@ -17,15 +17,17 @@ export const SearchPage = () => {
   const [ searchParams ] = useSearchParams();
   // - .get() obtener solo el valor del param 'name', si no existe, asigna undefined.
   const name = searchParams.get('name') ?? undefined;
+  // - .get() obtener solo el valor del param strength, si no existe, asigna undefined.
+  const strength = searchParams.get('strength') ?? undefined;
 
   //* hook de Tanstak useQuery, gestión de la data obtenida con searchHeroesAction():
   // destrurc. del objeto data: renombrado a heroes, inicializado con []
   const { data: heroes = [] } = useQuery({
     // almacena en cache con la key única 'search',
-    // si el valor name cambia, se ejecuta nueva búsqueda automáticamente
-    queryKey: ['search', { name }],
+    // si el valor name o strength cambian, se ejecuta nueva búsqueda automáticamente
+    queryKey: ['search', { name, strength }],
     // especifica la func que hace la busqueda de los heroes por su name
-    queryFn: () => searchHeroesAction({ name }),
+    queryFn: () => searchHeroesAction({ name, strength }),
     // mantiene la info fresca en cache, 5 min
     staleTime: 1000 * 60 * 5,
   });
