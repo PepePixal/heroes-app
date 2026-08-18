@@ -565,6 +565,104 @@ https://www.npmjs.com/package/axios-mock-adapter
 - VSC: crear test src/heroes/hooks/useHeroSummary.test.tsx
 
 
+----------------------------------------------------------------
+✅ Sección 17 - Desplegar React App Héroes - Backend y FrontEnd
+----------------------------------------------------------------
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/67030282-introduccion
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/67030296-continuacion-de-proyecto
+
+- Levantar serv backend en pto :3000, por defecto: npm run start:dev y ejecutar vite: npm run dev
+- Comprobar que la app funciona en local.
+- Si todo va bién, cancelar el backend local en le pto:3000, con: Ctrl + C 
+
+
+🟠 https://cursos.devtalles.com/courses/take/react-de-cero/lessons/67038933-desplegar-backend-en-render
+
+🔷 Backend - nest-heroes-app
+
+El backend está programado en NestJS, framework de Node.js para Backend, basado en TypeScript, utiliza Express como motor HTTP subyacente.
+
+Requerimientos de Software en el servidor:
+- Node.js, versión LTS recomendada, en el servidor.
+- Gestor de paquetes (npm, pnpm o yarn) para instalar dependencias.
+- Proceso de Build (Compilación): Como NestJS utiliza TypeScript por defecto, el código fuente debe compilarse a JavaScript plano antes de ejecutarse en el servidor (npm run build). Esto genera una carpeta (generalmente llamada dist).
+
+🔷 Render
+
+https://render.com/ - Aconsejable loguearse con cta de GitHub
+https://dashboard.render.com/register/github
+
+Render.com es una plataforma de alojamiento en la nube (cloud hosting) que permite desplegar y escalar aplicaciones web, sitios estáticos, bases de datos y servicios backend.
+
+A menudo se le considera una alternativa moderna y más sencilla a servicios tradicionales como AWS, Google Cloud o Heroku.
+
+Características Principales:
+- Despliegue Continuo: Se conecta directamente con repositorios de Git (como GitHub o GitLab). Cada vez que haces un git push, Render compila y despliega tu código automáticamente.
+- Soportes Múltiples: Permite ejecutar aplicaciones en diversos lenguajes y frameworks, incluyendo Node.js, Python, Go, Ruby, Rust, Docker y sitios estáticos (React, Vue, Next.js, HTML/CSS).
+- Bases de Datos Gestionadas: Ofrece bases de datos PostgreSQL completamente administradas.
+- Certificados SSL Gratuitos: Configura automáticamente certificados HTTPS/SSL personalizados para tus dominios sin costo adicional.
+- Capa Gratuita (Free Tier): Cuenta con un plan gratuito muy popular para proyectos personales, prototipos o pruebas, aunque los servicios en este plan entran en modo de suspensión (sleep) tras un periodo de inactividad.
+
+------
+
+✅ Despliegue del BACKEND nest-heroes-app, en Render Services
+
+Git / Github
+
+-> GitHub: Crearnos nuevo repositorio "heros-app-backend" en GitHub, para el backend
+ 
+-> Terminal en el directorio local del backend: 
+  - comprobar el estado de git en el directorio local con: git status
+  - si la respuesta es: fatal: not a git repository (or any of the parent directories): .git,
+  - inicializar git en el repo local con: git init (esto genera la carpeta oculta .git)
+  - preparar los archivos para comitear: git add .
+  - hacer el primer commit al repo local con: git commit -m "Initial commit"
+  - Hacer el push del repo local del backend al nuevo repo remoto:
+	git remote add origin https://github.com/PepePixal/heroes-app-backend.git
+	git push -u origin main
+- Comprobar que se ha subido el repositorio a GitHub. Las carpetas del .gitIgnore, no se deben subir. 
+
+Render
+
+- Loguearse en:  https://dashboard.reder.com
+- New Web Service
+- Pestaña "Git Provider" / "Connect Git Provider" / GitHub
+- Only Select Repositories / "Select Repositories" / seleccionar "heroes-app-backend" / botón "Install"
+- Editar el nuevo Web Service: heroes-app-backend
+- Solo cambiar la Region: EU (Central) y el Instance Type: Free / botón "Deploy Web Service"
+- Tardará unos minutos. Cuando termine se habrá generado un enlace tipo: https://heroes-app-backend-y6rg.onrender.com
+- Pulsar sobre el enlace y el navegador debería mostrar algo como:
+	Hola! desde el index.html
+	Verifica el URL que ingresaste, porque no deberías de ver esta página
+ 
+Postman
+
+- Probar GET a la api con la url del servidor remoto: 
+	https://heroes-app-backend-y6rg.onrender.com/api/heroes
+
+VSC
+
+- Editar la app heroes-app (local)
+- En las variables de entorno, comentar la variable de entorno local y crear una nueva, con la url remota (sin la / final)
+	VITE_API_URL=https://heroes-app-backend-y6rg.onrender.com
+- Levantado el compilador vite con: npm run dev y
+- comprobar que la app local (http://localhost:5173/) funciona ok, cargando ahora la data del serv. remoto en Render.
+ 
+
+✅ Despliegue del FRONTEND heroes-app, en Render
+
+VSC - preparar la app
+
+- Editar el archivo src/router/app.router.tsx
+- cambiar el código: createBrowserRouter por  createHashRouter (requiere import)
+- cancelar el compilador vite y volver a cargarlo con: npm run dev
+- Comprobar que la app en local continua funcionando ok.
+
+
+
+
+	
 
 
 

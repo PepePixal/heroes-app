@@ -1,6 +1,6 @@
 // Componente Estadísticas
 
-import { use, useMemo } from "react";
+import { use } from "react";
 import { Heart, Users, Zap } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { HeroStatCard } from './HeroStatCard';

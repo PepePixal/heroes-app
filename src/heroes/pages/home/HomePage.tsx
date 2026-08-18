@@ -96,7 +96,7 @@ export const HomePage = () => {
             </TabsTrigger>
 
             <TabsTrigger value="favorites" className="flex items-center gap-2"
-                onClick={ () => setSearchParams( ( prev ) => {
+              onClick={ () => setSearchParams( ( prev ) => {
                 prev.set('tab', 'favorites');
                 return prev;
               })}
@@ -105,7 +105,7 @@ export const HomePage = () => {
             </TabsTrigger>
 
             <TabsTrigger value="heroes"
-                onClick={ () => setSearchParams( ( prev ) => {
+              onClick={ () => setSearchParams( ( prev ) => {
                 prev.set('tab', 'heroes');
                 prev.set('category', 'hero');
                 prev.set('page', '1');
@@ -116,7 +116,7 @@ export const HomePage = () => {
             </TabsTrigger>
 
             <TabsTrigger value="villains"
-                onClick={ () => setSearchParams( ( prev ) => {
+              onClick={ () => setSearchParams( ( prev ) => {
                 prev.set('tab', 'villains');
                 prev.set('category', 'villain');
                 prev.set('page', '1');
