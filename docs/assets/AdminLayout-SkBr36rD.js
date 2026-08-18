@@ -1,0 +1,1 @@
+import{n as e,r as t,t as n}from"./index-Djne5XPX.js";var r=t(),i=n(),a=()=>{let t=(0,r.c)(1),n;return t[0]===Symbol.for(`react.memo_cache_sentinel`)?(n=(0,i.jsxs)(`div`,{className:`bg-blue-300`,children:[(0,i.jsx)(`h1`,{children:`Admin Layoutayout`}),(0,i.jsx)(e,{})]}),t[0]=n):n=t[0],n};export{a as AdminLayout,a as default};

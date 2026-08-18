@@ -650,7 +650,7 @@ VSC
 - comprobar que la app local (http://localhost:5173/) funciona ok, cargando ahora la data del serv. remoto en Render.
  
 
-✅ Despliegue del FRONTEND heroes-app, en Render
+✅ Preparación de la app (Frontend) para el Despliegue al servidor
 
 VSC - preparar la app
 
@@ -658,6 +658,27 @@ VSC - preparar la app
 - cambiar el código: createBrowserRouter por  createHashRouter (requiere import)
 - cancelar el compilador vite y volver a cargarlo con: npm run dev
 - Comprobar que la app en local continua funcionando ok.
+- ⚠️ OPCIONAL: Modificar package.json: modificar la línea "build": para que haga los test vitest, antes de hacer el build
+	"build": "vitest run && tsc -b && vite build"
+  	- Esto implica tener levantado el servidor de backend local en el puerto :30001 con:
+		PORT=3001 npm run start:dev
+
+Compilar la app para subirla al servidor:
+
+- Comprobar que la app pasa todos los test con: npm run test
+- Comprobar que no está levantado el servidor local de vite, cancelarlo si está levantado.
+
+-> Abrir nueva terminal de la aplicación app del proyecto
+- Compilar la app con vite ejecutando: npm run build
+- En la raíz del proyecto, se genera o se reescribe la carpeta /dist, que es la que subiremos al servidor
+
+✅ DESPLIEGUE de la app en netlify 
+
+- https://www.netlify.com/ - Loguearse
+- Estando en el dashboard Porjects,
+- arrastrar la carpeta /dist del proyecto, al recuadro del final de la ventana Projects 
+- el despliegue se hará automáticamente generando una url tipo: https://deluxe-lily-0e3bb9.netlify.app/
+- 🚨 También se puede desplegar la aplicación desde el repo de GitHub. Netlify: "Add New Project" / "Import Git Repository"
 
 
 
